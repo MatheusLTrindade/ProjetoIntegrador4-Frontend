@@ -22,12 +22,6 @@ import { usePathname } from 'next/navigation';
 
 export default function Nav(params) {
 	const pathname = usePathname();
-	// const pathname = router.pathname;
-
-	const handleNavigate = (path) => {
-		analytics.logEvent("navigate", { destination: path });
-		router.push(path);
-	};
 
 	return (
 		<nav 
@@ -48,13 +42,8 @@ export default function Nav(params) {
 							key={index}
             >
 							{/* tooltip */}
-							<div 
-                className='absolute pr-14 right-0 hidden xl:group-hover:flex'
-                onClick={() => handleNavigate(link.path)}  
-              >
-								<div
-									className='bg-white relative flex text-primary items-center p-[6px] rounded-[3px]'
-                >
+							<div className='absolute pr-14 right-0 hidden xl:group-hover:flex'>
+								<div className='bg-white relative flex text-primary items-center p-[6px] rounded-[3px]'>
 									<div className='text-[12px] leading-none font-semibold capitalize'>
 										{link.name}
 									</div>
