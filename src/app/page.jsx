@@ -36,9 +36,8 @@ export default function Home() {
               exit='hidden'
               className='max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16'
             >
-              A melhor plataforma de troca, produtos novos e seminovos. <br />
-              Recebemos cadastro de produtos todos os dias. <br />
-              Onde o seu produto usado ganha novos destinos.
+              Aqui o seu produto usado ganha novos destinos. <br />
+              <span className='text-orangeLight font-bold'>Diminua a produção de resíduos e contribua para um mundo mais sustentável!</span>
             </motion.p>
             {/* btns */}
             <div className="flex flex-col xs:flex-row items-center justify-center xl:justify-normal gap-4 ">
@@ -65,7 +64,7 @@ export default function Home() {
                 <Link
                   name='login'
                   href="/login"
-                  className='flex items-center justify-center px-4 py-2 bg-accent rounded-2xl transition-all duration-300 hover:bg-orangeMedium'
+                  className='flex items-center justify-center px-4 py-2 bg-tertiary rounded-2xl transition-all duration-300 hover:bg-primary'
                 >
                   Logar
                 </Link>
