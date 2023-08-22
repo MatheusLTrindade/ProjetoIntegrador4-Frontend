@@ -1,9 +1,18 @@
+'use client';
+
 import './globals.css';
 import { Sora } from 'next/font/google';
 
 // components
 import Header from '@/components/Header';
 import Nav from '@/components/Nav';
+import Transition from '@/components/Transition';
+
+// frame motion
+import { AnimatePresence, motion } from 'framer-motion';
+
+// next
+import { usePathname } from 'next/navigation';
 
 const sora = Sora({
 	subsets: ['latin'],
@@ -15,14 +24,23 @@ export const metadata = {
 	description: 'Projeto Integrador 4º Semestre - SENAC SP - 2023',
 };
 
-export default function RootLayout({ children, slots }) {
+export default function RootLayout({ children }) {
+	const pathname = usePathname();
+
 	return (
 		<html lang='pt-br'>
 			<body
-				className={`page bg-site text-white bg-cover bg-no-repeat relative ${sora.className}`}>
+				className={`page bg-site text-white bg-cover bg-no-repeat relative ${sora.className} relative`}>
 				<Header />
 				<Nav />
-				{children}
+				<AnimatePresence mode='wait'>
+					{children}
+					<motion.div
+						key={pathname}
+						className='h-full'>
+						<Transition />
+					</motion.div>
+				</AnimatePresence>
 			</body>
 		</html>
 	);
