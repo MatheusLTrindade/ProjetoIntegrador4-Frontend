@@ -49,8 +49,20 @@ export default function Login(params) {
           >
             {/* input group */}
             <div className='flex flex-col gap-6 w-[300px]'>
-              <input type='text' name='username' placeholder='username' className='input'/>
-              <input type='password' name='password' placeholder='password' className='input'/>
+              <motion.input 
+                variants={ fadeIn('right', 0.6) }
+                initial='hidden'
+                animate='show'
+                exit='hidden'
+                action=''
+                type='text' name='username' placeholder='username' className='input'/>
+              <motion.input 
+                variants={ fadeIn('left', 0.6) }
+                initial='hidden'
+                animate='show'
+                exit='hidden'
+                action=''
+                type='password' name='password' placeholder='password' className='input'/>
             </div>
             <button className='
               btn rounded-full border border-white/50 max-w-[120px] px-8 
