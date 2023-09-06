@@ -17,6 +17,9 @@ export const aboutData = [
   }
 ]
 
+// components
+import Footer from '@/components/Footer';
+
 // framer motion
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../../variants';
@@ -175,6 +178,16 @@ export default function Register(params) {
           </motion.div>
         </motion.div>
       </div>
+      
+      <motion.div
+        variants={fadeIn('left', 0.4)} 
+        initial='hidden' 
+        animate='show' 
+        exit='hidden'
+        className='absolute bottom-[7vh] xl:bottom-[1vh] -right-1'
+      >
+        < Footer />
+      </motion.div>
     </main>
   )
 };
