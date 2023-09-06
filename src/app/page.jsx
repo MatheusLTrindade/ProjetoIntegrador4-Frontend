@@ -2,7 +2,6 @@
 
 // next
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 // framer motion
 import { motion } from 'framer-motion';
@@ -11,7 +10,6 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
 export default function Home() {
-  const pathname = usePathname();
 
 	return (
 		<main className='h-[100vh] bg-primary/60'>
