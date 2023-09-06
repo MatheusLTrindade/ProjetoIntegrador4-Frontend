@@ -31,7 +31,7 @@ export default function Transition() {
 				exit='exit'
 				transition={{ delay: 0.2, duration: 0.6, ease: 'easeInOut' }}
 			>
-				<div className='container flex h-full w-full items-center justify-center'>
+				<div className='flex h-full w-full items-center justify-center'>
 					<div className="flex bg-secondary/80 rounded-full w-[300px] h-[300px] shadow-xl drop-shadow-xl">
 						<Image src='/logo.png' width={200} height={200} alt='logo' className='m-auto'/>
 					</div>
