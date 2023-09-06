@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='pt-br'>
 			<body
-				className={`page bg-site text-white bg-cover bg-no-repeat relative ${sora.className} relative`}>
+				className={`page text-white relative ${sora.className}`}>
 				<Header />
 				<Nav />
 				<AnimatePresence mode='wait'>
