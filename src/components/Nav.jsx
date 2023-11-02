@@ -23,9 +23,7 @@ import {
 // nav data
 export const navData = {
 	comumn: [
-		{ name: 'home', path: '/', icon: <HiHome /> },
 		{ name: 'login', path: '/login', icon: <HiUser /> },
-		{ name: 'register', path: '/register', icon: <HiPencilSquare /> },
 		{ name: 'info', path: '/info', icon: <HiOutlineInformationCircle /> }
 	],
 	admin: [
