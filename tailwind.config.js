@@ -21,6 +21,13 @@ module.exports = {
     },
     extend: {
       colors: {
+        // primary: '#c9e3ac',
+        // secondary: '#90be6d',
+        // tertiary: '#37371f',
+        // accent: '#ea9010',
+        // orangeDark: '#37371f',
+        // orangeMedium: '#90be6d',
+        // orangeLight: '#c9e3ac'
         primary: '#146063',
         secondary: '#00ADB5',
         tertiary: '#4C8483',
