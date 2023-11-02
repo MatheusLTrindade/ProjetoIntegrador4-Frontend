@@ -8,7 +8,7 @@ import { fadeIn } from '../../../../variants'
 
 export default function Developers() {
   return (
-    <div className='h-full bg-primary/30 py-32 text-center'>
+    <div className='h-full bg-primary/20 py-32 text-center'>
       <div className='container mx-auto h-full flex flex-col justify-center'>
         {/* title */}
         <motion.h2 

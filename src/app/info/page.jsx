@@ -38,7 +38,7 @@ export const metadata = {
 
 export default function Register(params) {
   return (
-    <main className='h-[100vh] bg-primary/30 py-32 text-center xl:text-left'>
+    <main className='h-[100vh] bg-primary/20 py-32 text-center xl:text-left'>
       <div className='container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6'>
         {/* text */}
         <div className='flex-1 flex flex-col justify-center resize'>

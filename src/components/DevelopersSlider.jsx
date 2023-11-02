@@ -70,7 +70,7 @@ export default function DevelopersSlider() {
       loop={true}
       autoplay={{
         delay: 5000,
-        // disableOnInteraction: false
+        disableOnInteraction: false
       }}
       modules={[Autoplay, Pagination, Navigation]}
       className='h-[400px]'
@@ -87,7 +87,7 @@ export default function DevelopersSlider() {
                 <div className='flex flex-col justify-center text-center'>
                   {/* avatar */}
                   <div className='mb-2 mx-auto'>
-                    <Image src={person.image} width={100} height={100} alt={`Avatar ${person.name}`} className='rounded-full'/>
+                    <Image src={person.image} width={100} height={100} alt={`Avatar ${person.name}`} className='rounded-full drop-shadow-md shadow-md shadow-accent'/>
                   </div>
                   {/* name */}
                   <div className='text-lg'>{person.name}</div>

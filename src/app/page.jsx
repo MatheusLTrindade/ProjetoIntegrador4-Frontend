@@ -12,8 +12,8 @@ import { fadeIn } from '../../variants';
 export default function Home() {
 
 	return (
-		<main className='h-[100vh] bg-primary/60'>
-			<div className='w-full h-full bg-gradient-to-r from-primary/10 via-black/30 to-black/10'>
+		<main className='h-[100vh] bg-primary/20'>
+			<div className='w-full h-full '>
         <div className='text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto'>
             {/* title */}
             <motion.h1 
