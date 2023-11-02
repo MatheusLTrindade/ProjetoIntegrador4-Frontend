@@ -43,7 +43,7 @@
   }
   .input,
   .select {
-    @apply w-full h-[52px] rounded-lg pl-6 capitalize;
+    @apply w-full h-[52px] rounded-lg pl-6;
   }
   .select option{
     @apply bg-accent hover:bg-gray-500 text-white font-thin text-sm;
