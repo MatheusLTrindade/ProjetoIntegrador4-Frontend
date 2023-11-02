@@ -35,7 +35,9 @@ export default function Register(params) {
             Vamos <span className='text-accent'>cadastrar.</span>
           </motion.h1>
           {/* form */}
-          < FormRegister />
+          <div className='bg-white/50 rounded-lg container p-6'>
+            <FormRegister />
+          </div>
         </div>
       </div>
     </main>

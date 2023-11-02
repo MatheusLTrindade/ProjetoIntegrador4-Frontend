@@ -67,11 +67,11 @@ export default function FormRegister(params) {
       animate='show'
       exit='hidden'
       action=''
-      className='flex-1 flex flex-col gap-6 w-full mx-auto relative'
+      className='flex-1 flex flex-col gap-6 w-full mx-auto relativ'
     >
       {/* input groups */}
       <div className='flex flex-col items-center'>
-        <label htmlFor="fileInput" className={`${selectedImage && 'hidden'} inline-block input cursor-pointer w-auto p-2 transition-all duration-300 hover:text-accent hover:border-accent`}>
+        <label htmlFor="fileInput" className={`${selectedImage && 'hidden'} inline-block input cursor-pointer w-auto p-2 transition-all duration-300 text-primary/50 border-primary/50 hover:text-accent hover:border-accent`}>
           <BiSolidImageAdd className='text-4xl'/>
         </label>
         <input type='file' id="fileInput" name='photo' className='hidden' onChange={imageChange}/>
@@ -100,15 +100,19 @@ export default function FormRegister(params) {
               initial='hidden'
               animate='show'
               exit='hidden'
-              action=''
-              type='text' name='username' placeholder='username' className='input'/>
+              type='text' 
+              name='username' 
+              placeholder='Username' 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
             <motion.input 
               variants={ fadeIn('left', 0.6) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='text' name='name' placeholder='name' className='input'/>
+              type='text' 
+              name='name' 
+              placeholder='Name' 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
             <motion.div
@@ -116,25 +120,35 @@ export default function FormRegister(params) {
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
               className='w-full'>
-              <IMaskInput mask="000.000.000-00" type='text' name='cpf' placeholder='CPF' className='input'/>
+              <IMaskInput 
+                mask="000.000.000-00" 
+                type='text' 
+                name='cpf' 
+                placeholder='CPF' 
+                className='input text-black border-primary/50 placeholder:text-primary/50'/>
             </motion.div>
             <motion.input 
               variants={ fadeIn('up', 0.4) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action=''
-              type='date' name='birthday' className='input cursor-pointer xl:max-w-[170px]' max={dataMaxima}/>
+              type='date' 
+              name='Birthday' 
+              className='input cursor-pointer xl:max-w-[170px] text-black border-primary/50 placeholder:text-primary/50' 
+              max={dataMaxima}/>
             <motion.div
               variants={ fadeIn('left', 0.8) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
               className='w-full'>
-              <IMaskInput mask="+55 (00) 0 0000-0000" type='tel' name='phone' placeholder='phone' className='input'/>
+              <IMaskInput 
+                mask="+55 (00) 0 0000-0000" 
+                type='tel' 
+                name='phone' 
+                placeholder='Phone' 
+                className='input text-black border-primary/50 placeholder:text-primary/50'/>
             </motion.div>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -142,17 +156,27 @@ export default function FormRegister(params) {
               variants={ fadeIn('right', 1.0) }
               initial='hidden'
               animate='show'
-              exit='hidden'
-              action='' >
-              <IMaskInput mask="00000-000" type='text' name='zip' placeholder='zip' value={cep} onChange={handleCepChange} className='input xl:max-w-[150px]'/>
+              exit='hidden'>
+              <IMaskInput 
+                mask="00000-000" 
+                type='text' 
+                name='zip' 
+                placeholder='Zip' 
+                value={cep} 
+                onChange={handleCepChange} 
+                className='input xl:max-w-[150px] text-black border-primary/50 placeholder:text-primary/50'/>
             </motion.div>
             <motion.input
               variants={ fadeIn('left', 1.0) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='text' name='address' placeholder='address' value={address.logradouro} className='input' readOnly />
+              type='text' 
+              name='address' 
+              placeholder='Address' 
+              value={address.logradouro} 
+              className='input text-black border-primary/50 placeholder:text-primary/50' 
+              readOnly />
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
             <motion.input
@@ -160,22 +184,29 @@ export default function FormRegister(params) {
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='text' name='bairro' placeholder='bairro' value={address.bairro} className='input'/>
+              type='text'
+              name='bairro' 
+              placeholder='Bairro' 
+              value={address.bairro} 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
             <motion.input
               variants={ fadeIn('up', 0.6) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='text' name='complement' placeholder='complement' className='input'/>
+              type='text' 
+              name='complement' 
+              placeholder='Complement' 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
             <motion.input
               variants={ fadeIn('left', 1.2) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='text' name='number' placeholder='number' className='input xl:max-w-[120px]'/>
+              type='text' 
+              name='number' 
+              placeholder='Number' 
+              className='input xl:max-w-[120px] text-black border-primary/50 placeholder:text-primary/50'/>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
             <motion.input
@@ -183,15 +214,19 @@ export default function FormRegister(params) {
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='email' name='email' placeholder='email' className='input'/>
+              type='email' 
+              name='email' 
+              placeholder='Email' 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
             <motion.input
               variants={ fadeIn('left', 1.4) }
               initial='hidden'
               animate='show'
               exit='hidden'
-              action='' 
-              type='password' name='password' placeholder='password' className='input'/>
+              type='password' 
+              name='password' 
+              placeholder='Password' 
+              className='input text-black border-primary/50 placeholder:text-primary/50'/>
           </div>
         </div>
       </div>
@@ -202,28 +237,28 @@ export default function FormRegister(params) {
         animate='show'
         exit='hidden'
         action='' 
-        className="flex xl:hidden absolute justify-center items-center gap-2 text-xs writing-vertical-lr text-white/50 bottom-20 -right-4">
+        className="flex xl:hidden absolute justify-center items-center gap-2 text-xs writing-vertical-lr text-primary/50 bottom-20 -right-4">
         <span className='tracking-[-1.75px]'>---</span>
         Scroll Down
         <BsMouseFill />
-        <span className='tracking-[-1.75px]'>---</span>
+        <span className='text-primary/50 tracking-[-1.75px]'>---</span>
       </motion.p>
       {/* button send */}
       <motion.div
         variants={ fadeIn('right', 1.6) }
         initial='hidden'
         animate='show'
-        exit='hidden'
-        action=''>
+        exit='hidden'>
         <button 
+          type='submit'
           className='
-          btn rounded-full border border-white/50 max-w-[120px] px-8 
+          btn rounded-full border border-primary/50 max-w-[120px] px-8 
           transition-all delay-300 flex items-center justify-center 
           overflow-hidden hover:border-accent hover:border-2 group hover:translate-x-6'
         >
           <span className='
             group-hover:-translate-y-[120%] group-hover:opacity-0 
-            transition-all delay-200 duration-200'
+            transition-all delay-200 duration-200 text-primary'
           >
             Cadastrar
           </span>
