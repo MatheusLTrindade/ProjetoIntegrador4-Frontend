@@ -21,20 +21,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        // primary: '#c9e3ac',
-        // secondary: '#90be6d',
-        // tertiary: '#37371f',
-        // accent: '#ea9010',
-        // orangeDark: '#37371f',
-        // orangeMedium: '#90be6d',
-        // orangeLight: '#c9e3ac'
-        primary: '#146063',
-        secondary: '#00ADB5',
-        tertiary: '#4C8483',
-        accent: '#EB6440',
-        orangeDark: '#B04B30',
-        orangeMedium: '#D9522C',
-        orangeLight: '#ED6E4C'
+        primary: '#CEC9C1',
+        secondary: '#98B9F2',
+        tertiary: '#4C8BD9',
+        accent: '#003366',
+        blueDark: '#001f33',
+        blueMedium: '#004080',
+        blueLight: '#005cbf',
+        blueExtraLight: '#007acc'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -43,6 +37,13 @@ module.exports = {
       },
       animation: {
         'spin-slow': 'spin 6s linear infinite',
+        'spin-reverse': 'spin-reverse 1s linear infinite',
+      },
+      keyframes: {
+        'spin-reverse': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(-360deg)' },
+        },
       },
     },
   },
