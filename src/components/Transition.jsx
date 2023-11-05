@@ -24,34 +24,35 @@ export default function Transition() {
 	return (
 		<>
 			<motion.div
-				className='fixed top-0	bottom-0 right-full w-screen h-screen z-30 bg-orangeDark'
+				className='fixed top-0	bottom-0 right-full w-screen h-screen z-30 bg-blueDark'
 				variants={transitionVariants}
 				initial='initial'
 				animate='animate'
 				exit='exit'
-				transition={{ delay: 0.2, duration: 0.6, ease: 'easeInOut' }}
+				transition={{ delay: 0.2, duration: 0.4, ease: 'easeInOut' }}
 			>
 				<div className='flex h-full w-full items-center justify-center'>
-					<div className="flex bg-secondary/80 rounded-full w-[300px] h-[300px] shadow-xl drop-shadow-xl">
-						<Image src='/logo.png' width={200} height={200} alt='logo' className='m-auto'/>
+					<div className="flex bg-primary rounded-full w-[300px] h-[300px] shadow-xl drop-shadow-xl justify-center items-center">
+						<Image src='/pointer.png' width={200} height={200} alt='logo' className='m-auto absolute'/>
+						<Image src='/spin.png' width={200} height={200} alt='logo' className='m-auto absolute animate-spin-reverse'/>
 					</div>
 				</div>
 			</motion.div>
 			<motion.div
-				className='fixed top-0	bottom-0 right-full w-screen h-screen z-20 bg-orangeMedium'
+				className='fixed top-0	bottom-0 right-full w-screen h-screen z-20 bg-blueMedium'
 				variants={transitionVariants}
 				initial='initial'
 				animate='animate'
 				exit='exit'
-				transition={{ delay: 0.4, duration: 0.6, ease: 'easeInOut' }}
+				transition={{ delay: 0.3, duration: 0.4, ease: 'easeInOut' }}
 			></motion.div>
 			<motion.div
-				className='fixed top-0	bottom-0 right-full w-screen h-screen z-10 bg-orangeLight'
+				className='fixed top-0	bottom-0 right-full w-screen h-screen z-10 bg-blueLight'
 				variants={transitionVariants}
 				initial='initial'
 				animate='animate'
 				exit='exit'
-				transition={{ delay: 0.6, duration: 0.6, ease: 'easeInOut' }}
+				transition={{ delay: 0.4, duration: 0.4, ease: 'easeInOut' }}
 			></motion.div>
 		</>
 	);

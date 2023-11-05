@@ -11,13 +11,15 @@ const Header = () => {
 	return (
 		<header className='absolute w-full flex items-center px-16 xl:px-0 xl:h-[90px]'>
 			<div className='container mx-auto'>
-        <div className='flex flex-col lg:flex-row justify-between items-center gap-y-6 py-8'>
+        <div className='flex justify-star items-center gap-y-6 py-8 max-sm:justify-center'>
           {/* logo */}
-          <Link href={'/'} className='z-[10] xl:mt-8'>
-            <Image src={'/logo.png'} width={150} height={48} alt='Logo Troca Fácil' priority={true}/>
+          <Link href={'/'} className='flex justify-center items-center gap-x-6 z-[10] xl:mt-8'>
+            <div className="flex justify-center items-center">
+              <Image src='/pointer.png' width={48} height={48} alt='logo' className='m-auto absolute'/>
+              <Image src='/spin.png' width={48} height={48} alt='logo' className='m-auto absolute animate-spin-reverse'/>
+            </div>
+            <Image src={'/logo_text.png'} width={92} height={48} alt='Logo Troca Fácil' priority={true}/>
           </Link>
-          {/* socials */}
-          {/* <Socials /> */}
         </div>
       </div>
 		</header>
