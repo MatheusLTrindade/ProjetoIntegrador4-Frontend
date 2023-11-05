@@ -1,28 +1,20 @@
 // developer data
 export const developersData = [
   {
-    image: '/DevJhonatan.jpeg',
-    name: 'Jhonatan Ribeiro',
-    position: 'Backend',
-    office: 'Leader',
-    message:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita odit beatae, cupiditate saepe quam officia aut placeat quas neque!',
-  },
-  {
     image: '/DevMatheus.jpeg',
     name: 'Matheus Trindade',
     position: 'Frontend',
     office: 'Leader',
     message:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita odit beatae, cupiditate saepe quam officia aut placeat quas neque!',
+      'Como líder da equipe de frontend, sou responsável por criar interfaces de usuário incríveis e interativas. Minha paixão por design e desenvolvimento me motiva a entregar experiências visuais excepcionais para nossos usuários. Estou comprometido em tornar nosso frontend tão incrível quanto possível!',
   },
   {
-    image: '/t-avt-3.png',
-    name: 'Murilo Lima',
-    position: 'Frontend',
-    office: 'Support',
+    image: '/DevJhonatan.jpeg',
+    name: 'Jhonatan Ribeiro',
+    position: 'Backend',
+    office: 'Leader',
     message:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita odit beatae, cupiditate saepe quam officia aut placeat quas neque!',
+      'Sou o líder da equipe de desenvolvimento backend. Estou aqui para garantir que nossos servidores funcionem de maneira eficiente e confiável. Estou sempre pronto para ajudar no que for preciso para manter nossa aplicação rodando sem problemas!',
   },
   {
     image: '/DevRonald.jpeg',
@@ -30,15 +22,15 @@ export const developersData = [
     position: 'Backend',
     office: 'Infrastructure',
     message:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita odit beatae, cupiditate saepe quam officia aut placeat quas neque!',
+      'Como membro da equipe de infraestrutura, tenho a responsabilidade de garantir a estabilidade e segurança de nossa arquitetura de servidor. Estou focado em otimizar nosso ambiente de hospedagem, melhorar a segurança e aprimorar o desempenho. Se há algo relacionado à infraestrutura, estou aqui para resolver!',
   },
   {
-    image: '/t-avt-3.png',
-    name: 'Vinicius Carvalho',
-    position: 'Backend',
+    image: '/DevMurilo.jpeg',
+    name: 'Murilo Lima',
+    position: 'Fullstack',
     office: 'Support',
     message:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita odit beatae, cupiditate saepe quam officia aut placeat quas neque!',
+      'Como desenvolvedor fullstack, meu papel é versátil. Trabalho tanto no frontend quanto no backend para garantir que todos os aspectos de nossa aplicação estejam funcionando perfeitamente. Estou aqui para oferecer suporte técnico e resolver problemas de forma eficaz. Conte comigo para qualquer desafio!',
   },
 ];
 
@@ -56,9 +48,14 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 // icons
 import { FaQuoteLeft } from 'react-icons/fa'
+import { BsMouseFill } from 'react-icons/bs';
 
 // next image
 import Image from 'next/image';
+
+// framer motion
+import { motion } from 'framer-motion';
+import { fadeIn } from '../../variants';
 
 export default function DevelopersSlider() {
   return (
@@ -100,15 +97,28 @@ export default function DevelopersSlider() {
               {/* quote & message */}
               <div className='
                 flex-1 flex flex-col justify-center before:w-[1px] 
-                xl:before:bg-white/20 xl:before:absolute xl:before:left-0 
-                xl:before:h-[200px] relative xl:pl-20'
+                xl:before:bg-white/50 xl:before:absolute xl:before:left-0 
+                xl:before:h-[200px] relative xl:pl-20 max-sm:-mt-6'
               >
                 {/* quote icon */}
                 <div className='mb-4'>
-                  <FaQuoteLeft className='text-4xl xl:text-6xl text-white/20 mx-auto md:mx-0'/>
+                  <FaQuoteLeft className='text-4xl xl:text-6xl text-white/30 mx-auto md:mx-0'/>
                 </div>
                 {/* message */}
-                <div className='xl:text-lg text-center md:text-left max-sm:text-sm'>{person.message}</div>
+                <div className='xl:text-lg text-center sm:text-justify max-sm:text-sm max-sm:overflow-y-auto max-sm:max-h-[100px]'>{person.message}</div>
+                {/* span scroll */}
+                <motion.p
+                  variants={ fadeIn('up', 0.8) }
+                  initial='hidden'
+                  animate='show'
+                  exit='hidden'
+                  action='' 
+                  className="flex sm:hidden absolute justify-center items-center gap-2 text-xs writing-vertical-lr text-tertiary/50 bottom-8 -right-4">
+                  <span className='tracking-[-1.75px]'>---</span>
+                  Scroll Down
+                  <BsMouseFill />
+                  <span className='text-tertiary/50 tracking-[-1.75px]'>---</span>
+                </motion.p>
               </div>
             </div>
           </SwiperSlide>
