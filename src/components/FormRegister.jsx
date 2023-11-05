@@ -5,6 +5,7 @@ import { BiSolidImageAdd } from 'react-icons/bi';
 
 // next
 import Image from 'next/image';
+import Link from 'next/link';
 
 // react
 import { useState } from 'react';
@@ -16,7 +17,51 @@ import { IMaskInput } from "react-imask";
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
+// axios
+import axios from 'axios';
+
 export default function FormRegister(params) {
+
+  const [formData, setFormData] = useState({
+    photo: '',
+    username: '',
+    name: '',
+    cpf: '',
+    birthday: '',
+    phone: '',
+    zip: '',
+    address: '',
+    district: '',
+    complement: '',
+    number: '',
+    email: '',
+    password: '',
+  });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      alert(formData.name)
+      alert(formData.birthday)
+      // Faz a requisição POST usando Axios
+      const response = await axios.post('http://localhost:8050/auth/register', formData);
+      
+      // Lida com a resposta da API aqui (por exemplo, atualizando o estado do componente)
+      console.log('Resposta da API:', response.data);
+    } catch (error) {
+      // Lida com erros da requisição aqui
+      alert("Falha ao cadastrar usuário.")
+      console.error('Erro ao enviar requisição:', error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    // Atualiza o estado do formulário quando os campos são alterados
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   // Api ViaCep
   const [cep, setCep] = useState();
   const [address, setAddress] = useState({});
@@ -66,8 +111,8 @@ export default function FormRegister(params) {
       initial='hidden'
       animate='show'
       exit='hidden'
-      action=''
       className='flex-1 flex flex-col gap-6 w-full mx-auto max-sm:max-h-[300px]'
+      onSubmit={handleSubmit}
     >
       {/* input groups */}
       <div className='flex flex-col items-center'>
@@ -103,7 +148,8 @@ export default function FormRegister(params) {
               type='text' 
               name='username' 
               placeholder='Username' 
-              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
+              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+              onChange={handleInputChange}/>
             <motion.input 
               variants={ fadeIn('left', 0.6) }
               initial='hidden'
@@ -112,7 +158,8 @@ export default function FormRegister(params) {
               type='text' 
               name='name' 
               placeholder='Name' 
-              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
+              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+              onChange={handleInputChange}/>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
             <motion.div
@@ -126,7 +173,8 @@ export default function FormRegister(params) {
                 type='text' 
                 name='cpf' 
                 placeholder='CPF' 
-                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
+                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+                onChange={handleInputChange}/>
             </motion.div>
             <motion.input 
               variants={ fadeIn('up', 0.4) }
@@ -134,9 +182,10 @@ export default function FormRegister(params) {
               animate='show'
               exit='hidden'
               type='date' 
-              name='Birthday' 
+              name='birthday' 
               className='input cursor-pointer xl:max-w-[170px] text-black border-tertiary/50 placeholder:text-tertiary/50' 
-              max={dataMaxima}/>
+              max={dataMaxima}
+              onChange={handleInputChange}/>
             <motion.div
               variants={ fadeIn('left', 0.8) }
               initial='hidden'
@@ -148,7 +197,8 @@ export default function FormRegister(params) {
                 type='tel' 
                 name='phone' 
                 placeholder='Phone' 
-                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
+                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+                onChange={handleInputChange}/>
             </motion.div>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -185,8 +235,8 @@ export default function FormRegister(params) {
               animate='show'
               exit='hidden'
               type='text'
-              name='bairro' 
-              placeholder='Bairro' 
+              name='district' 
+              placeholder='District' 
               value={address.bairro} 
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.input
