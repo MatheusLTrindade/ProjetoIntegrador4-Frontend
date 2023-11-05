@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Slim&display=swap');
+@font-face {
+  font-family: 'NovaSlim';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/NovaSlim.ttf') format('truetype');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,19 +16,19 @@
 }
 
 .swiper-pagination-horizontal.swiper-pagination-bullets  .swiper-pagination-bullet-active {
-  @apply bg-accent animate-none;
+  @apply bg-blueExtraLight animate-none;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after,
 .swiper-button-next:after,
 .swiper-rtl .swiper-button-prev:after {
-  @apply text-accent;
+  @apply text-blueLight;
 }
 
 @layer base {
   body {
-    @apply bg-secondary overflow-hidden leading-relaxed;
+    @apply bg-primary overflow-hidden leading-relaxed;
   }
   .page {
     @apply w-full h-screen overflow-hidden;
@@ -59,4 +67,10 @@
   .writing-vertical-lr {
     writing-mode: vertical-lr;
   }
+  .nova-slim {
+    font-family: 'NovaSlim';
+    font-style: normal;
+    font-weight: 400;
+  }
+
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import './globals.css';
-import { Sora } from 'next/font/google';
 
 // components
 import Header from '@/components/Header';
@@ -14,6 +13,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 // next
 import { usePathname } from 'next/navigation';
 
+// fonts google
+import { Sora } from 'next/font/google';
 const sora = Sora({
 	subsets: ['latin'],
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
