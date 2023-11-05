@@ -50,7 +50,7 @@ export default function Nav(params) {
 
 	return (
 		<nav 
-			className='flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-50 top-0 w-full xl:w-16 xl:max-w-md xl:h-screen'
+			className='flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-20 top-0 w-full xl:w-16 xl:max-w-md xl:h-screen'
 		>
 			<div 
 				className='flex w-full xl:flex-col items-center justify-between xl:justify-center gap-y-10 px-14 md:px-40 xl:px-0 h-[80px] xl:h-max py-8 bg-white/10 backdrop-blur-sm text-3xl xl:text-xl xl:rounded-full shadow-lg drop-shadow-lg'
@@ -61,15 +61,15 @@ export default function Nav(params) {
 						<Link
 							name={link.name}
 							className={
-                `${link.path === pathname && 'text-accent'} relative flex 
-                items-center group hover:text-accent transition-all duration-300`
+                `${link.path === pathname && 'text-blueExtraLight'} relative flex 
+                items-center group hover:text-blueExtraLight transition-all duration-300`
               }
 							href={link.path}
 							key={index}
             >
 							{/* tooltip */}
 							<div className='absolute pr-14 right-0 hidden xl:group-hover:flex'>
-								<div className='bg-white relative flex text-primary items-center p-[6px] rounded-[3px]'>
+								<div className='bg-white relative flex text-secondary items-center p-[6px] rounded-[3px]'>
 									<div className='text-[12px] leading-none font-semibold capitalize'>
 										{link.name}
 									</div>

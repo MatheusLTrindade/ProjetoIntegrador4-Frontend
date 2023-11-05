@@ -61,29 +61,29 @@ export default function Login(params) {
   };
 
   return (
-    <main className='h-[100vh] bg-primary/20'>
+    <main className='h-[100vh] bg-secondary/20'>
       <div
         className='
-          container mx-auto py-32 text-center xl:text-left 
+          container mx-auto py-32 text-center
           flex items-center justify-center h-full'
         >
         {/* text & form */}
         <div className='flex flex-col w-full max-w-[700px]'>
           {/* text */}
-          <motion.h1 
+          <motion.h2 
             variants={ fadeIn('up', 0.2) }
             initial='hidden'
             animate='show'
             exit='hidden'
-            className='h2 text-center mb-12 max-sm:text-[30px]'
+            className='h2 text-center mb-12 max-sm:text-[30px] nova-slim'
           >
             Vamos <span className='text-accent'>logar.</span>
-          </motion.h1>
+          </motion.h2>
           <div className='flex w-full max-w-[700px] bg-white/10 rounded-md'>
-            <div className='flex flex-col w-full max-w-[700px]'>
+            <div className='flex flex-col w-full max-w-[700px] rounded-l-md shadow-xl drop-shadow-xl max-sm:absolute max-sm:bottom-50 max-sm:shadow-none'>
               <Lottie animationData={animationData} />
             </div>
-            <div className='flex flex-col w-full max-w-[700px] bg-white/50 rounded-r-md'>
+            <div className='flex flex-col w-full max-w-[700px] bg-white/50 rounded-r-md shadow-inner shadow-black/50 drop-shadow-xl max-sm:pt-6 max-sm:bg-white/80'>
               {/* form */}
               <motion.form
                 variants={ fadeIn('up', 0.4) }
@@ -104,7 +104,7 @@ export default function Login(params) {
                     type='text' 
                     name='email' 
                     placeholder='Email' 
-                    className='input text-black border-primary/50 placeholder:text-primary/50' 
+                    className='input text-black border-tertiary/50 placeholder:text-tertiary/50' 
                     value={formData.email} 
                     onChange={handleInputChange}/>
                   <motion.input 
@@ -116,20 +116,20 @@ export default function Login(params) {
                     type='password' 
                     name='password' 
                     placeholder='Password' 
-                    className='input text-black border-primary/50 placeholder:text-primary/50'
+                    className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
                     value={formData.password} 
                     onChange={handleInputChange}/>
                 </div>
                 <button 
                   type="submit"
                   className='
-                  btn rounded-full border border-primary/50 max-w-[120px] px-8 
+                  btn rounded-full border border-tertiary/50 max-w-[120px] px-8 
                   transition-all delay-300 flex items-center justify-center 
                   overflow-hidden hover:border-accent hover:border-2 group'
                   >
                   <span className='
                     group-hover:-translate-y-[120%] group-hover:opacity-0 
-                    transition-all delay-200 duration-200 text-primary'
+                    transition-all delay-200 duration-200 text-tertiary'
                     >
                     Logar
                   </span>
@@ -142,8 +142,8 @@ export default function Login(params) {
                 </button>
               </motion.form>
               <div className='flex flex-col mb-10 items-center justify-center text-center w-full max-w-[700px] '>
-                <p className='text-primary/60'>or</p>
-                <Link href={'/register'} className='hover:text-accent font-bold text-primary/60'>register</Link>
+                <p className='text-tertiary/60'>or</p>
+                <Link href={'/register'} className='hover:text-accent font-bold text-tertiary/60'>register</Link>
               </div>
             </div>
           </div>

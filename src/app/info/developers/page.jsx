@@ -8,7 +8,7 @@ import { fadeIn } from '../../../../variants'
 
 export default function Developers() {
   return (
-    <div className='h-full bg-primary/20 py-32 text-center'>
+    <div className='h-full bg-secondary/20 py-32 text-center'>
       <div className='container mx-auto h-full flex flex-col justify-center'>
         {/* title */}
         <motion.h2 
@@ -16,7 +16,7 @@ export default function Developers() {
           initial='hidden' 
           animate='show' 
           exit='hidden' 
-          className='h2 mb-8 xl:mb-0 max-sm:text-[30px]'
+          className='h2 mb-8 xl:mb-0 max-sm:text-[30px] nova-slim'
         >
           The <span className='text-accent'>developers.</span> 
         </motion.h2>

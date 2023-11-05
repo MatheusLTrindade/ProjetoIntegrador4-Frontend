@@ -36,9 +36,9 @@ export const metadata = {
   }
 }
 
-export default function Register(params) {
+export default function Info(params) {
   return (
-    <main className='h-[100vh] bg-primary/20 py-32 text-center xl:text-left'>
+    <main className='h-[100vh] bg-secondary/20 py-32 text-center'>
       <div className='container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6'>
         {/* text */}
         <div className='flex-1 flex flex-col justify-center resize'>
@@ -47,7 +47,7 @@ export default function Register(params) {
             initial='hidden' 
             animate='show' 
             exit='hidden' 
-            className='h3 max-sm:h2 max-sm:text-[30px] max-[375px]:text-[28px] max-[375px]:mt-0'
+            className='h3 max-sm:h2 max-sm:text-[30px] max-[375px]:text-[28px] max-sm:mt-0 nova-slim'
           >
             Dicas | <span className='text-accent'>Informativos.</span>
           </motion.h3>
@@ -72,7 +72,7 @@ export default function Register(params) {
               {/* experience */}
               <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'
               >
-                <div className='text-base xl:text-2xl font-extrabold text-accent mb-2 animate-[bounce_1500ms_infinite]'>
+                <div className='text-base xl:text-2xl font-extrabold text-blueExtraLight mb-2 animate-[bounce_1500ms_infinite]'>
                   <CountUp start={-5} end={1} duration={5} /> + 
                 </div>
                 <div className='uppercase tracking-[1px] leading-[1.4] max-w-[100px] text-[8px]'>
@@ -82,7 +82,7 @@ export default function Register(params) {
               {/* Satisfied clients */}
               <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'
               >
-                <div className='text-base xl:text-2xl font-extrabold text-accent mb-2 animate-[bounce_1700ms_infinite]'>
+                <div className='text-base xl:text-2xl font-extrabold text-blueExtraLight mb-2 animate-[bounce_1700ms_infinite]'>
                   <CountUp start={-5} end={530} duration={5} /> + 
                 </div>
                 <div className='uppercase tracking-[1px] leading-[1.4] max-w-[100px] text-[8px]'>
@@ -92,7 +92,7 @@ export default function Register(params) {
               {/* Exchanges products */}
               <div className='relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0'
               >
-                <div className='text-base xl:text-2xl font-extrabold text-accent mb-2 animate-[bounce_1900ms_infinite]'>
+                <div className='text-base xl:text-2xl font-extrabold text-blueExtraLight mb-2 animate-[bounce_1900ms_infinite]'>
                   <CountUp start={-5} end={841} duration={5} /> + 
                 </div>
                 <div className='uppercase tracking-[1px] leading-[1.4] max-w-[100px] text-[8px]'>
@@ -101,7 +101,7 @@ export default function Register(params) {
               </div>
               {/* Registered users */}
               <div className='relative flex-1'>
-                <div className='text-base xl:text-2xl font-extrabold text-accent mb-2 animate-[bounce_2200ms_infinite]'>
+                <div className='text-base xl:text-2xl font-extrabold text-blueExtraLight mb-2 animate-[bounce_2200ms_infinite]'>
                   <CountUp start={-5} end={1745} duration={5} /> + 
                 </div>
                 <div className='uppercase tracking-[1px] leading-[1.4] max-w-[100px] text-[8px]'>
@@ -110,7 +110,7 @@ export default function Register(params) {
               </div>
               {/* Registered products */}
               <div className='relative flex-1'>
-                <div className='text-base xl:text-2xl font-extrabold text-accent mb-2 animate-[bounce_2200ms_infinite]'>
+                <div className='text-base xl:text-2xl font-extrabold text-blueExtraLight mb-2 animate-[bounce_2200ms_infinite]'>
                   <CountUp start={-5} end={2984} duration={5} /> + 
                 </div>
                 <div className='uppercase tracking-[1px] leading-[1.4] max-w-[100px] text-[8px]'>
@@ -133,7 +133,7 @@ export default function Register(params) {
             initial='hidden' 
             animate='show' 
             exit='hidden' 
-            className='h3 max-sm:h2 max-sm:text-[30px] max-[375px]:text-[28px] max-[375px]:mt-0'
+            className='h3 max-sm:h2 max-sm:text-[30px] max-[375px]:text-[28px] max-sm:mt-0 nova-slim'
           >
             Contacts<span className='text-accent'>.</span>
           </motion.h3>
