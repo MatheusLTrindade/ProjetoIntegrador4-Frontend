@@ -20,6 +20,13 @@ import {
 	GiExitDoor
 } from 'react-icons/gi'
 
+// next
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+// api/auth
+import authLogout from '@/app/api/auth/authLogout';
+
 // nav data
 export const navData = {
 	comumn: [
@@ -39,9 +46,6 @@ export const navData = {
 	]
 };
 
-// next
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export default function Nav(params) {
 	const pathname = usePathname();
@@ -64,6 +68,7 @@ export default function Nav(params) {
                 `${link.path === pathname && 'text-blueExtraLight'} relative flex 
                 items-center group hover:text-blueExtraLight transition-all duration-300`
               }
+							onClick={() => {if (link.name === 'logout') {authLogout()}}}
 							href={link.path}
 							key={index}
             >

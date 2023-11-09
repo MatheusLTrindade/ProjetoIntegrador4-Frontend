@@ -4,8 +4,8 @@ import Image from 'next/image';
 // next link
 import Link from 'next/link';
 
-// components
-// import Socials from '../components/Socials';
+// api/auth
+import authLogout from '@/app/api/auth/authLogout';
 
 const Header = () => {
 	return (
@@ -13,7 +13,10 @@ const Header = () => {
 			<div className='container mx-auto'>
         <div className='flex justify-star items-center gap-y-6 py-8 max-sm:justify-center'>
           {/* logo */}
-          <Link href={'/'} className='flex justify-center items-center gap-x-6 z-[10] xl:mt-8'>
+          <Link 
+            href={'/'} 
+            className='flex justify-center items-center gap-x-6 z-[10] xl:mt-8'
+            onClick={() => {if (sessionStorage.getItem('jwtToken') !== null) {authLogout()}}}>
             <div className="flex justify-center items-center">
               <Image src='/pointer.png' width={48} height={48} alt='logo' className='m-auto absolute'/>
               <Image src='/spin.png' width={48} height={48} alt='logo' className='m-auto absolute animate-spin-reverse'/>
