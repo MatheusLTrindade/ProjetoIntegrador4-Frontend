@@ -1,4 +1,6 @@
+// components
 import Card from '@/components/Card';
+import CardLarge from '@/components/CardLarge';
 
 export const metadata = {
 	title: 'Troca Facil | Admin',
@@ -29,8 +31,10 @@ export default function Admin(params) {
             />
           </div>
           <div className='flex flex-col xl:flex-row items-center justify-center p-4 gap-6'>
-            <section className='flex flex-col w-full h-[20rem] bg-white'></section>
-            <section className='flex flex-col w-full h-[20rem] bg-white'></section>
+            <CardLarge title={'GRAFIC'}
+            content={'GRAFIC'} hyperlink={'none'} />
+            <CardLarge title={'LIST'}
+            content={'LIST'} hyperlink={'none'} />
           </div>
         </div>
       </div>
