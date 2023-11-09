@@ -10,7 +10,7 @@ export default function CRUD(params) {
     <main className='h-[100vh] bg-secondary/20'>
       <div className='text-center flex flex-col justify-center items-center xl:pt-40 xl:text-left h-full container mx-auto'>
           {/* text & form */}
-        <div className=' flex flex-col w-full justify-center resize sm:-mt-12'>
+        <div className=' flex flex-col w-full justify-center resize sm:-mt-20'>
           <h2 className='h2 text-center max-sm:text-[30px] nova-slim'>CRUD<span className="text-accent">.</span></h2>
           <DataTable />
         </div>

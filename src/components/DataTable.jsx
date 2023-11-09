@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import data from '@/app/data/data.json';
 
-import { TbArrowBigRight, TbArrowBigLeft } from 'react-icons/tb'
+import { TbArrowBigRight, TbArrowBigLeft, TbDatabaseEdit, TbDatabaseMinus } from 'react-icons/tb'
 
 const itemsPerPage = window.matchMedia('not all and (min-width: 640px)').matches ? 3 : 5
 
@@ -84,7 +84,10 @@ export default function DataTable() {
                 <td className="border p-2">{item.id}</td>
                 <td className="border p-2">{item.id}</td>
                 <td className="border p-2">{item.id}</td>
-                <td className="border p-2">{item.id}</td>
+                <td className="border p-2 text-center">
+                  <TbDatabaseEdit className='text-cyan-500 cursor-pointer'/>
+                  <TbDatabaseMinus className='text-red-600 cursor-pointer'/>  
+                </td>
               </tr>
             ))}
           </tbody>
