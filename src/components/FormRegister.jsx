@@ -5,7 +5,7 @@ import { BiSolidImageAdd } from 'react-icons/bi';
 
 // next
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // react
 import { useState } from 'react';
@@ -17,10 +17,12 @@ import { IMaskInput } from "react-imask";
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
-// axios
-import axios from 'axios';
+// api/auth
+import authRegister from '@/app/api/auth/authRegister';
+import ViaCep from '@/app/api/viaCep';
 
 export default function FormRegister(params) {
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
     photo: '',
@@ -34,66 +36,53 @@ export default function FormRegister(params) {
     district: '',
     complement: '',
     number: '',
-    email: '',
+    login: '',
     password: '',
   });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      alert(formData.name)
-      alert(formData.birthday)
-      // Faz a requisição POST usando Axios
-      const response = await axios.post('http://localhost:8050/auth/register', formData);
-      
-      // Lida com a resposta da API aqui (por exemplo, atualizando o estado do componente)
-      console.log('Resposta da API:', response.data);
-    } catch (error) {
-      // Lida com erros da requisição aqui
-      alert("Falha ao cadastrar usuário.")
-      console.error('Erro ao enviar requisição:', error);
-    }
+  function handleInputChange(e) {
+    // Atualiza o estado do formulário quando os campos são alterados
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleInputChange = (event) => {
-    // Atualiza o estado do formulário quando os campos são alterados
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      // Faz a requisição usando a função authRegister
+      const response = await authRegister(formData);
+      router.push(response)
+    } catch (error) {
+      throw error
+    }
   };
 
   // Api ViaCep
   const [cep, setCep] = useState();
   const [address, setAddress] = useState({});
-  const handleCepChange = async (e) => {
+  async function handleCepChange(e) {
     const newCep = e.target.value;
     setCep(newCep);
     if (newCep.length === 9) {
       try {
-        const resp = await fetch(`https://viacep.com.br/ws/${newCep}/json`);
-        // const resp = await fetch(`api/viaCep&cep=${newCep}`);
-        if (resp.ok) {
-          const data = await resp.json();
-          setAddress({ logradouro: data.logradouro, bairro: data.bairro });
-        } else {
-          setAddress({ logradouro: '', bairro: '' });
-        }
+        const response = await ViaCep(newCep)
+        setAddress({ street: response.street, district: response.district })
       } catch (error) {
-        setAddress({ logradouro: '', bairro: '' });
+        setAddress({ street: '', district: '' });
       }
     } else {
-      setAddress({ logradouro: '', bairro: '' });
+      setAddress({ street: '', district: '' });
     }
   };
 
   // Image
   const [selectedImage, setSelectedImage] = useState();
-  const imageChange = (e) => {
+  function imageChange(e) {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
     }
   };
-  const removeSelectedImage = () => {
+  function removeSelectedImage() {
     setSelectedImage();
   };
 
@@ -119,8 +108,13 @@ export default function FormRegister(params) {
         <label htmlFor="fileInput" className={`${selectedImage && 'hidden'} inline-block input cursor-pointer w-auto p-2 transition-all duration-300 text-tertiary/50 border-tertiary/50 hover:text-accent hover:border-accent`}>
           <BiSolidImageAdd className='text-4xl'/>
         </label>
-        <input type='file' id="fileInput" name='photo' className='hidden' onChange={imageChange}/>
-
+        <input 
+          type='file' 
+          id="fileInput" 
+          name='photo' 
+          className='hidden' 
+          onChange={(e) =>{imageChange(e), handleInputChange(e)}}/>
+        {/* show image */}
         {selectedImage && (
           <div className='relative flex items-center justify-center'>
             <Image
@@ -148,8 +142,8 @@ export default function FormRegister(params) {
               type='text' 
               name='username' 
               placeholder='Username' 
-              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-              onChange={handleInputChange}/>
+              onChange={handleInputChange}
+              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.input 
               variants={ fadeIn('left', 0.6) }
               initial='hidden'
@@ -158,8 +152,8 @@ export default function FormRegister(params) {
               type='text' 
               name='name' 
               placeholder='Name' 
-              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-              onChange={handleInputChange}/>
+              onChange={handleInputChange}
+              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
             <motion.div
@@ -173,8 +167,8 @@ export default function FormRegister(params) {
                 type='text' 
                 name='cpf' 
                 placeholder='CPF' 
-                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-                onChange={handleInputChange}/>
+                onChange={handleInputChange}
+                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             </motion.div>
             <motion.input 
               variants={ fadeIn('up', 0.4) }
@@ -183,9 +177,9 @@ export default function FormRegister(params) {
               exit='hidden'
               type='date' 
               name='birthday' 
-              className='input cursor-pointer xl:max-w-[170px] text-black border-tertiary/50 placeholder:text-tertiary/50' 
+              onChange={handleInputChange}
               max={dataMaxima}
-              onChange={handleInputChange}/>
+              className='input cursor-pointer xl:max-w-[170px] text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.div
               variants={ fadeIn('left', 0.8) }
               initial='hidden'
@@ -197,8 +191,8 @@ export default function FormRegister(params) {
                 type='tel' 
                 name='phone' 
                 placeholder='Phone' 
-                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-                onChange={handleInputChange}/>
+                onChange={handleInputChange}
+                className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             </motion.div>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -213,7 +207,7 @@ export default function FormRegister(params) {
                 name='zip' 
                 placeholder='Zip' 
                 value={cep} 
-                onChange={handleCepChange} 
+                onChange={(e) => {handleCepChange(e), handleInputChange(e)}} 
                 className='input xl:max-w-[150px] text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             </motion.div>
             <motion.input
@@ -224,7 +218,8 @@ export default function FormRegister(params) {
               type='text' 
               name='address' 
               placeholder='Address' 
-              value={address.logradouro} 
+              value={address.street} 
+              onChange={handleInputChange}
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50' 
               readOnly />
           </div>
@@ -237,7 +232,8 @@ export default function FormRegister(params) {
               type='text'
               name='district' 
               placeholder='District' 
-              value={address.bairro} 
+              value={address.district} 
+              onChange={handleInputChange}
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.input
               variants={ fadeIn('up', 0.6) }
@@ -247,6 +243,7 @@ export default function FormRegister(params) {
               type='text' 
               name='complement' 
               placeholder='Complement' 
+              onChange={handleInputChange}
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.input
               variants={ fadeIn('left', 1.2) }
@@ -256,6 +253,7 @@ export default function FormRegister(params) {
               type='text' 
               name='number' 
               placeholder='Number' 
+              onChange={handleInputChange}
               className='input xl:max-w-[120px] text-black border-tertiary/50 placeholder:text-tertiary/50'/>
           </div>
           <div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -265,8 +263,9 @@ export default function FormRegister(params) {
               animate='show'
               exit='hidden'
               type='email' 
-              name='email' 
+              name='login' 
               placeholder='Email' 
+              onChange={handleInputChange}
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
             <motion.input
               variants={ fadeIn('left', 1.4) }
@@ -276,6 +275,7 @@ export default function FormRegister(params) {
               type='password' 
               name='password' 
               placeholder='Password' 
+              onChange={handleInputChange}
               className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
           </div>
         </div>
