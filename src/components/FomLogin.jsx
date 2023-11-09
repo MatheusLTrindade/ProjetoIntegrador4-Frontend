@@ -2,7 +2,7 @@
 import { BsArrowRight } from 'react-icons/bs';
 
 // next 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // react
 import { useState } from 'react';
@@ -11,36 +11,31 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
-// axios
-import axios from 'axios';
+// api/auth
+import authLogin from '@/app/api/auth/authLogin';
 
 export default function FormLogin(params) {
-
+  const router = useRouter()
   const [formData, setFormData] = useState({
-    email: '',
+    login: '',
     password: '',
   });
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Faz a requisição POST usando Axios
-      const response = await axios.post('http://localhost:8050/auth/login', formData);
-      
-      // Lida com a resposta da API aqui (por exemplo, atualizando o estado do componente)
-      console.log('Resposta da API:', response.data);
-    } catch (error) {
-      // Lida com erros da requisição aqui
-      alert("Usuário ou senha inválido")
-      console.error('Erro ao enviar requisição:', error);
-    }
+  
+  function handleInputChange(e) {
+    // Atualiza o estado do formulário quando os campos são alterados
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleInputChange = (event) => {
-    // Atualiza o estado do formulário quando os campos são alterados
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      // Faz a requisição usando a função authLogin
+      const response = await authLogin(formData);
+      router.push(response)
+    } catch (error) {
+      throw error
+    }
   };
 
   return(
@@ -59,10 +54,10 @@ export default function FormLogin(params) {
           animate='show'
           exit='hidden'
           type='text' 
-          name='email' 
-          placeholder='Email' 
-          className='input text-black border-tertiary/50 placeholder:text-tertiary/50' 
-          onChange={handleInputChange}/>
+          name='login' 
+          placeholder='Email'  
+          onChange={handleInputChange}
+          className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
         <motion.input 
           variants={ fadeIn('left', 0.6) }
           initial='hidden'
@@ -71,8 +66,8 @@ export default function FormLogin(params) {
           type='password' 
           name='password' 
           placeholder='Password' 
-          className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-          onChange={handleInputChange}/>
+          onChange={handleInputChange}
+          className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
       </div>
       <button 
         type="submit"
