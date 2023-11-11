@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // api/auth
-import authLogout from '@/app/api/auth/authLogout';
+import authLogout from '@/api/auth/authLogout';
 
 const Header = () => {
 	return (
