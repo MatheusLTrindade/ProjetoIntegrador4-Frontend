@@ -1,38 +1,5 @@
 // developer data
-export const developersData = [
-  {
-    image: '/DevMatheus.jpeg',
-    name: 'Matheus Trindade',
-    position: 'Frontend',
-    office: 'Leader',
-    message:
-      'Como líder da equipe de frontend, sou responsável por criar interfaces de usuário incríveis e interativas. Minha paixão por design e desenvolvimento me motiva a entregar experiências visuais excepcionais para nossos usuários. Estou comprometido em tornar nosso frontend tão incrível quanto possível!',
-  },
-  {
-    image: '/DevJhonatan.jpeg',
-    name: 'Jhonatan Ribeiro',
-    position: 'Backend',
-    office: 'Leader',
-    message:
-      'Sou o líder da equipe de desenvolvimento backend. Estou aqui para garantir que nossos servidores funcionem de maneira eficiente e confiável. Estou sempre pronto para ajudar no que for preciso para manter nossa aplicação rodando sem problemas!',
-  },
-  {
-    image: '/DevRonald.jpeg',
-    name: 'Ronald Amorim',
-    position: 'Backend',
-    office: 'Infrastructure',
-    message:
-      'Como membro da equipe de infraestrutura, tenho a responsabilidade de garantir a estabilidade e segurança de nossa arquitetura de servidor. Estou focado em otimizar nosso ambiente de hospedagem, melhorar a segurança e aprimorar o desempenho. Se há algo relacionado à infraestrutura, estou aqui para resolver!',
-  },
-  {
-    image: '/DevMurilo.jpeg',
-    name: 'Murilo Lima',
-    position: 'Fullstack',
-    office: 'Support',
-    message:
-      'Como desenvolvedor fullstack, meu papel é versátil. Trabalho tanto no frontend quanto no backend para garantir que todos os aspectos de nossa aplicação estejam funcionando perfeitamente. Estou aqui para oferecer suporte técnico e resolver problemas de forma eficaz. Conte comigo para qualquer desafio!',
-  },
-];
+import developersData from '@/data/developersData.json' 
 
 // import swiper react components
 import { Swiper, SwiperSlide } from 'swiper/react';
