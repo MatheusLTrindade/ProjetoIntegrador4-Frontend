@@ -18,8 +18,8 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
 // api/auth
-import authRegister from '@/app/api/auth/authRegister';
-import ViaCep from '@/app/api/viaCep';
+import authRegister from '@/api/auth/authRegister';
+import ViaCep from '@/api/viaCep';
 
 export default function FormRegister(params) {
   const router = useRouter()
@@ -50,8 +50,8 @@ export default function FormRegister(params) {
     e.preventDefault();
     try {
       // Faz a requisição usando a função authRegister
-      const response = await authRegister(formData);
-      router.push(response)
+      console.log(formData)
+      // await authRegister(formData, router);
     } catch (error) {
       throw error
     }
@@ -100,6 +100,7 @@ export default function FormRegister(params) {
       initial='hidden'
       animate='show'
       exit='hidden'
+      encType='multipart/from-data'
       className='flex-1 flex flex-col gap-6 w-full mx-auto max-sm:max-h-[300px]'
       onSubmit={handleSubmit}
     >
@@ -110,6 +111,7 @@ export default function FormRegister(params) {
         </label>
         <input 
           type='file' 
+          accept='image/jpeg, image/png, image/gif'
           id="fileInput" 
           name='photo' 
           className='hidden' 

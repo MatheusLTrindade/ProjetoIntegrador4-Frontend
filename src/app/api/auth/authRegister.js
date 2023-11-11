@@ -1,7 +1,7 @@
 // axios
 import axios from "axios";
 
-export default async function authRegister(formData) {
+export default async function authRegister(formData, router) {
   try {
     // Faz a requisição POST usando Axios
     const response = await axios.post('http://localhost:8050/auth/register', formData);
@@ -9,7 +9,7 @@ export default async function authRegister(formData) {
       console.info('Cadastrado realizado com sucesso!')
       console.log('Resposta da API:', response.data);
       // Redireciona o usuário para a página de login
-      return '/login'
+      router.push('/login')
     }
   } catch(error) {
     // Lida com erros da requisição aqui
