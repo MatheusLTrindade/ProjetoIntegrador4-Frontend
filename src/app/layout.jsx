@@ -11,7 +11,13 @@ import Transition from '@/components/Transition';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // next
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+
+// react
+import { useEffect } from 'react';
+
+// api/auth
+import requireAuth from './api/auth/requiredAuth';
 
 // fonts google
 import { Sora } from 'next/font/google';
@@ -26,7 +32,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-	const pathname = usePathname();
+	const pathname = usePathname()
+	const router = useRouter()
+  // Verificar o token JWT ao carregar o componente
+  useEffect(() => {
+		requireAuth(pathname, router)
+	}, [pathname, router])
 
 	return (
 		<html lang='pt-br'>
