@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
 // api/auth
-import authLogin from '@/app/api/auth/authLogin';
+import authLogin from '@/api/auth/authLogin';
 
 export default function FormLogin(params) {
   const router = useRouter()
@@ -31,8 +31,7 @@ export default function FormLogin(params) {
     e.preventDefault();
     try {
       // Faz a requisição usando a função authLogin
-      const response = await authLogin(formData);
-      router.push(response)
+      await authLogin(formData, router);
     } catch (error) {
       throw error
     }

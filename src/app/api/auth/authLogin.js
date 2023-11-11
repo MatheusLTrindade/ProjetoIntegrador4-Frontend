@@ -1,7 +1,7 @@
 // axios
 import axios from "axios";
 
-export default async function authLogin(formData) {
+export default async function authLogin(formData, router) {
   try {
     // Faz a requisição POST usando Axios
     const response = await axios.post('http://localhost:8050/auth/login', formData);
@@ -11,7 +11,7 @@ export default async function authLogin(formData) {
       // Salvar o token JWT no armazenamento de sessão
       sessionStorage.setItem('jwtToken', response.data.token)
       // Redireciona o usuário para a página de usuário
-      return '/user'
+      router.push('/user')
     }      
   } catch(error) {
     // Lida com erros da requisição aqui
