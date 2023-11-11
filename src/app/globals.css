@@ -10,6 +10,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+::-webkit-scrollbar {
+  @apply w-[0.35rem] h-[0.35rem]
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-secondary
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-accent rounded-md
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blueDark
+}
+
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
 .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
   @apply bg-white transition-[background-color] duration-300 ease-linear animate-pulse;
