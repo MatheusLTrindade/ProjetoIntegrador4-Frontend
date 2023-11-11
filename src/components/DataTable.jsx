@@ -14,7 +14,7 @@ export default function DataTable({ data }) {
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm])
-  const itemsPerPage = window.matchMedia('not all and (min-width: 640px)').matches ? 3 : 5
+  const itemsPerPage = window.matchMedia('not all and (min-width: 640px)').matches ? 3 : 4
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
@@ -77,19 +77,19 @@ export default function DataTable({ data }) {
         </table>
       </div>
       <div className="mt-4 flex">
-        {currentPage > 1 && <button className='mx-1 w-10 h-10 border rounded-xl flex justify-center items-center' onClick={() => handlePageChange(currentPage - 1)}><TbArrowBigLeft/></button>}
+        {currentPage > 1 && <button className='mx-1 w-10 h-10 border rounded-xl flex justify-center items-center hover:bg-accent/20 duration-300 transition-all' onClick={() => handlePageChange(currentPage - 1)}><TbArrowBigLeft/></button>}
         {visiblePageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
             onClick={() => handlePageChange(pageNumber)}
-            className={`mx-1 w-10 h-10 border rounded-xl ${
+            className={`mx-1 w-10 h-10 border rounded-xl hover:bg-accent/20 duration-300 transition-all ${
               currentPage === pageNumber ? 'bg-accent' : ''
             }`}
           >
             {pageNumber}
           </button>
         ))}
-        {currentPage < totalPages && <button className='mx-1 w-10 h-10 border rounded-xl flex justify-center items-center' onClick={() => handlePageChange(currentPage + 1)}><TbArrowBigRight className='m-0 p-0'/></button>}
+        {currentPage < totalPages && <button className='mx-1 w-10 h-10 border rounded-xl flex justify-center items-center hover:bg-accent/20 duration-300 transition-all' onClick={() => handlePageChange(currentPage + 1)}><TbArrowBigRight className='m-0 p-0'/></button>}
       </div>
     </div>
   )

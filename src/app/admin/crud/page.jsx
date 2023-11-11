@@ -23,19 +23,21 @@ export default function CRUD() {
     <main className='h-[100vh] bg-secondary/20'>
       <div className='text-center flex flex-col justify-center items-center xl:pt-40 xl:text-left h-full container mx-auto'>
           {/* text & form */}
-        <div className=' flex flex-col w-full justify-center resize sm:-mt-20'>
+        <div className=' flex flex-col w-full justify-center resize sm:-mt-24'>
           <h2 className='h2 text-center max-sm:text-[30px] nova-slim'>CRUD<span className="text-accent">.</span></h2>
-          <div className='flex justify-center items-center'>
+          <div className='flex justify-center items-center -mt-4'>
             <Link 
-              className={`mx-1 p-2 border rounded-xl flex justify-center items-center ${pathname == 'admin/crud?display=users' && bg-accent}`} // TODO: verificar bg quando activate 
-              href={pathname+'?display=users'}>Usuários</Link>
+              className={`mx-1 p-2 border rounded-xl flex justify-center items-center hover:bg-accent/20 duration-300 transition-all ${searchParams.get('display') == 'users' ? 'bg-accent' : ''}`}
+              href={`${pathname}?display=users`}>Usuários</Link>
             <Link 
-              className='mx-1 p-2 border rounded-xl flex justify-center items-center'
-              href={pathname+'?display=products'}>Produtos</Link>
+              className={`mx-1 p-2 border rounded-xl flex justify-center items-center hover:bg-accent/20 duration-300 transition-all ${searchParams.get('display') == 'products' ? 'bg-accent' : ''}`}
+              href={`${pathname}?display=products`}>Produtos</Link>
           </div>
-          {data != null && (
-            <DataTable data={data} />
-          )}
+          <div className='-mt-4'>
+            {data != null && (
+              <DataTable data={data} />
+            )}
+          </div>
         </div>
       </div>
     </main>
