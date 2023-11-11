@@ -7,15 +7,18 @@ export default async function authLogin(formData, router) {
     const response = await axios.post('http://localhost:8050/auth/login', formData);
     if (response.status === 200) {
       console.info('Login realizado com sucesso!')
-      console.log('Resposta da API:', response.data);
       // Salvar o token JWT no armazenamento de sessão
       sessionStorage.setItem('jwtToken', response.data.token)
+      // Salvar o toast no armazenamento de sessão
+      sessionStorage.setItem('type', 'success')
+      sessionStorage.setItem('message', 'Login realizado com sucesso!')
       // Redireciona o usuário para a página de usuário
       router.push('/user')
     }      
   } catch(error) {
     // Lida com erros da requisição aqui
-    alert("Usuário ou senha inválido")
+    sessionStorage.setItem('type', 'error')
+    sessionStorage.setItem('message', 'Credencial inválida!')
     console.error('Erro ao enviar requisição:', error);
   }
 }
