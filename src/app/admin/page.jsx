@@ -2,6 +2,10 @@
 import Card from '@/components/Card';
 import CardLarge from '@/components/CardLarge';
 
+// data
+import usersData from '@/data/usersData.json'
+import productsData from '@/data/productsData.json';
+
 export const metadata = {
 	title: 'Troca Facil | Admin',
 	description: 'Dashboard Admin',
@@ -15,19 +19,19 @@ export default function Admin(params) {
           <h1 className='h1 nova-slim'>Dashboard Admin</h1>
           <div className='flex flex-col xl:flex-row items-center justify-center p-4 gap-6'>
             <Card
-              title='Title Test'
-              content='Content Test'
-              hyperlink='./admin/crud'
+              title='Usuários'
+              content={usersData.length}
+              hyperlink='./admin/crud?display=users'
             />
             <Card
-              title='Title 2'
-              content='Content 2'
-              hyperlink='./admin/crud'
-            />
+            title='Produtos'
+            content={productsData.length}
+              hyperlink='./admin/crud?display=products'
+              />
             <Card
-              title='Title 3'
-              content='Content 3'
-              hyperlink='./admin/crud'
+            title='Trocas'
+            content='Content 3'
+            hyperlink='./admin/crud'
             />
           </div>
           <div className='flex flex-col xl:flex-row items-center justify-center p-4 gap-6'>
