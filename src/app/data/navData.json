@@ -1,0 +1,17 @@
+{
+  "comumn": [
+    { "name": "login", "path": "/login", "icon": "HiUser" },
+    { "name": "info", "path": "/info", "icon": "HiOutlineInformationCircle" }
+  ],
+  "admin": [
+    { "name": "dashboard", "path": "/admin", "icon": "BiSolidDashboard" },
+    { "name": "crud", "path": "/admin/crud", "icon": "BiSolidData" },
+    { "name": "logout", "path": "/", "icon": "GiExitDoor" }
+  ],
+  "user": [
+    { "name": "dashboard", "path": "/user", "icon": "BiSolidDashboard" },
+    { "name": "profile", "path": "/user/profile", "icon": "HiUser" },
+    { "name": "store", "path": "user/store", "icon": "SiHomeassistantcommunitystore" },
+    { "name": "logout", "path": "/", "icon": "GiExitDoor" }
+  ]
+}
