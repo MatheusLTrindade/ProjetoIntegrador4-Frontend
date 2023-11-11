@@ -1,21 +1,7 @@
 'use client'
 
 // about data
-export const aboutData = [
-  {
-    title: 'SAC',
-    text: '0800 540 6451',
-  }, {
-    title: 'Ouvidoria',
-    text: '0800 852 3541',
-  }, {
-    title: 'WhatsApp',
-    text: '+55 (11) 9 3154-8512',
-  }, {
-    title: 'Email',
-    text: 'suporte@trocafacil.com.br',
-  }
-]
+import aboutData from '@/data/aboutData.json'
 
 // components
 import Footer from '@/components/Footer';
