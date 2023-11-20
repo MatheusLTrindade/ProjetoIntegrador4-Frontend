@@ -1,35 +1,73 @@
-import React from 'react';
+'use client'
+// react
+import { useState } from 'react';
+
+// components
+import Modal from '@/components/Modal';
+import ProductForm from '@/components/ProductForm';
+import FilterForm from '@/components/FilterForm';
 import Product from "@/components/Product";
 
+// icons
+import { MdAddBox, MdFilterAlt  } from "react-icons/md";
+
 export const metadata = {
-  title: 'Troca Fácil | Store',
-  description: 'Store',
-};
+  title: 'Troca Fácil | Loja',
+  description: 'Loja',
+  OpenGraph: {
+    title: 'Troca Fácil | Loja',
+    description: 'Loja', 
+  }
+}
 
 export default function Store(params) {
+  const [modalProductView, setModalProductView] = useState(false);
+  const [modalFilterView, setModalFilterView] = useState(false);
+	function handleModalProductChange() {
+		setModalProductView(true);
+	}
+  function handleModalProductClose() {
+    setModalProductView(false);
+  }
+	function handleModalFilterChange() {
+		setModalFilterView(true);
+	}
+
   const produtos = [
-    {photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00' },
+    { photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00', photoSeller: '/DevMatheus.jpeg', seller: '@Product' },
     { name: 'Produto 2', price: 'R$ 30.00' },
     { name: 'Produto 3', price: 'R$ 40.00' },
     { name: 'Produto 4', price: 'R$ 25.00' },
-    { name: 'Produto 5', price: 'R$ 25.00' },
-    { name: 'Produto 6', price: 'R$ 25.00' },
-
-
+    { photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00', photoSeller: '/DevMatheus.jpeg', seller: '@profile' },
+    { photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00', photoSeller: '/DevMatheus.jpeg', seller: '@profile' },
+    { photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00', photoSeller: '/DevMatheus.jpeg', seller: '@profile' },
+    { photo: '/DevMurilo.jpeg', name: 'Produto 1', price: 'R$ 50.00', photoSeller: '/DevMatheus.jpeg', seller: '@profile' },
   ];
 
   return (
-    <main className="h-[100vh] bg-secondary/20">
-      <div className="w-full h-full">
-        <div className="text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto">
-          <h1 className="h1">Store</h1>
-          <div className="flex flex-wrap gap-4 overflow-y-auto">
-            {produtos.map((produto, index) => (
-              <Product key={index} photo={produto.photo} name={produto.name} price={produto.price} />
-            ))}
+    <div className="h-full bg-secondary/20 text-center relative">
+			<Modal visible={modalProductView} title={'Cadastrar produto'} component={ProductForm} onClose={handleModalProductClose}/>
+			<Modal visible={modalFilterView} title={'Filtro'} component={FilterForm}/>
+      <div className="py-32">
+        <div className="container mx-auto h-full flex flex-col justify-center">
+          <h2 className="h2 mb-8 xl:mb-0 max-sm:text-[30px] nova-slim">Store<span className="text-accent">.</span></h2>
+          <div className='flex justify-center items-center gap-2'>
+            <div className='p-1 bg-blueExtraLight hover:bg-blueLight rounded-md'>
+              <MdAddBox className='cursor-pointer text-white' onClick={handleModalProductChange}/>
+            </div>
+            <div className='p-1 bg-blueExtraLight hover:bg-blueLight rounded-md'>
+              <MdFilterAlt className='cursor-pointer text-white' onClick={handleModalFilterChange}/>
+            </div>
+          </div>
+          <div className="flex sm:flex-col justify-center pt-4 h-full w-full mx-auto">
+            <div className="flex sm:flex-wrap gap-4 sm:justify-center overflow-x-scroll sm:overflow-x-hidden sm:overflow-y-auto">
+              {produtos.map((produto, index) => (
+                <Product key={index} photo={produto.photo} name={produto.name} price={produto.price} photoSeller={produto.photoSeller} seller={produto.seller} setting={false} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
