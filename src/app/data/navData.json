@@ -10,7 +10,7 @@
   ],
   "user": [
     { "name": "dashboard", "path": "/user", "icon": "BiSolidDashboard" },
-    { "name": "profile", "path": "/user/profile", "icon": "HiUser" },
+    { "name": "profile", "path": "/user/username", "icon": "HiUser" },
     { "name": "store", "path": "/user/store", "icon": "SiHomeassistantcommunitystore" },
     { "name": "logout", "path": "/", "icon": "GiExitDoor" }
   ]

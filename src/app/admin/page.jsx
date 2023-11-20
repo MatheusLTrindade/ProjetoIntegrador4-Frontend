@@ -9,6 +9,10 @@ import productsData from '@/data/productsData.json';
 export const metadata = {
 	title: 'Troca Facil | Admin',
 	description: 'Dashboard Admin',
+	OpenGraph: {
+    title: 'Troca Fácil | Admin',
+    description: 'Dashboard Admin', 
+  }
 };
 
 export default function Admin(params) {

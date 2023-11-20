@@ -30,8 +30,12 @@ const sora = Sora({
 });
 
 export const metadata = {
-	title: 'Projeto Integrador 4',
+	title: 'Troca Fácil',
 	description: 'Projeto Integrador 4º Semestre - SENAC SP - 2023',
+	OpenGraph: {
+    title: 'Troca Fácil',
+    description: 'Projeto Integrador 4º Semestre - SENAC SP - 2023', 
+  }
 };
 
 export default function RootLayout({ children }) {

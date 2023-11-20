@@ -14,7 +14,7 @@ import { fadeIn } from '../../variants';
 // api/auth
 import authLogin from '@/api/auth/authLogin';
 
-export default function FormLogin(params) {
+export default function LoginForm(params) {
   const router = useRouter()
   const [formData, setFormData] = useState({
     login: '',

@@ -11,8 +11,12 @@ import getDatabase from '@/api/data/getDatabase';
 import DataTable from "@/components/DataTable";
 
 export const metadata = {
-	title: 'Troca Facil | Admin - CRUD',
+	title: 'Troca Facil | CRUD Admin',
 	description: 'CRUD Admin',
+  OpenGraph: {
+    title: 'Troca Facil | CRUD Admin',
+    description: 'CRUD Admin', 
+  }
 };
 
 export default function CRUD() {

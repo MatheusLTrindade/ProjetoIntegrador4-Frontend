@@ -6,6 +6,15 @@ import DevelopersSlider from '@/components/DevelopersSlider'
 import { motion } from 'framer-motion'
 import { fadeIn } from '../../../../variants'
 
+export const metadata = {
+  title: 'Troca Fácil | Desenvolvedores',
+  description: 'Desenvolvedores',
+  OpenGraph: {
+    title: 'Troca Fácil | Desenvolvedores',
+    description: 'Desenvolvedores', 
+  }
+}
+
 export default function Developers() {
   return (
     <div className='h-full bg-secondary/20 py-32 text-center'>

@@ -26,12 +26,7 @@ export default function Toast({ type, message, onClose }) {
       break;
   }
 
-  const handleClose = () => {
-    if (onClose) {
-
-      onClose();
-    }
-  };
+  function handleClose() {if (onClose) { onClose() }}
 
   return (
     <motion.div 

@@ -14,11 +14,11 @@ import { fadeIn } from '../../../variants';
 import CountUp from 'react-countup';
 
 export const metadata = {
-  title: 'Info | PI4',
-  description: 'Info PI4',
+  title: 'Troca Fácil | Informações',
+  description: 'Informações',
   OpenGraph: {
-    title: 'Info | PI4',
-    description: 'Info PI4.', 
+    title: 'Troca Fácil | Informações',
+    description: 'Informações', 
   }
 }
 

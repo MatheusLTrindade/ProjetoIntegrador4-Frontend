@@ -3,9 +3,13 @@ import Card from "@/components/Card";
 import CardLarge from "@/components/CardLarge";
 
 export const metadata = {
-	title: 'Troca Facil | User',
-	description: 'Dashboard User',
-};
+  title: 'Troca Fácil | Usuário',
+  description: 'Dashboard Usuário',
+  OpenGraph: {
+    title: 'Troca Fácil | Usuário',
+    description: 'Dashboard Usuário', 
+  }
+}
 
 export default function User(params) {
   return (

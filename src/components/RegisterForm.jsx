@@ -21,7 +21,7 @@ import { fadeIn } from '../../variants';
 import authRegister from '@/api/auth/authRegister';
 import userPhoto from '@/api/upload/userPhoto';
 import ViaCep from '@/api/viaCep';
-export default function FormRegister() {
+export default function RegisterForm() {
 	// Função para mostrar o toast a partir de authRegister
 	const router = useRouter();
 

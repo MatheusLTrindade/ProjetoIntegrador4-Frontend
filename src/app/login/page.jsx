@@ -12,14 +12,14 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../../variants';
 
 // components
-import FormLogin from '@/components/FomLogin';
+import LoginForm from '@/components/LoginForm';
 
 export const metadata = {
-  title: 'Login | PI4',
-  description: 'Login PI4',
+  title: 'Troca Fácil | Login',
+  description: 'Login',
   OpenGraph: {
-    title: 'Login | PI4',
-    description: 'Login PI4.', 
+    title: 'Troca Fácil | Login',
+    description: 'Login', 
   }
 }
 
@@ -50,7 +50,7 @@ export default function Login(params) {
             </div>
             <div className='flex flex-col w-full max-w-[700px] bg-white/50 rounded-r-md shadow-inner shadow-black/50 drop-shadow-xl max-sm:pt-6 max-sm:bg-white/80'>
               {/* form */}
-              <FormLogin />
+              <LoginForm />
               <div className='flex flex-col mb-10 items-center justify-center text-center w-full max-w-[700px] '>
                 <p className='text-tertiary/60'>or</p>
                 <Link href={'/register'} className='hover:text-accent font-bold text-tertiary/60'>register</Link>
