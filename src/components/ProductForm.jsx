@@ -20,6 +20,7 @@ import { fadeIn } from '../../variants';
 // api
 import createProduct from '@/api/create/createProduct';
 import productPhoto from '@/api/upload/productPhoto';
+
 export default function ProductForm() {
 	// Função para mostrar o toast a partir de createProduct
 	const router = useRouter();
@@ -70,7 +71,7 @@ export default function ProductForm() {
       console.log(formData)
 			const response = await createProduct(formData, router);
 			setPhotoData({ id: response });
-			// await productPhoto(PhotoData);
+			await productPhoto(PhotoData);
 		} catch (error) {
 			throw error;
 		}
