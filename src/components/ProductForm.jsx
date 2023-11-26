@@ -19,59 +19,56 @@ import { fadeIn } from '../../variants';
 
 // api
 import createProduct from '@/api/create/createProduct';
-import productPhoto from '@/api/upload/productPhoto';
 
 export default function ProductForm() {
 	// Função para mostrar o toast a partir de createProduct
 	const router = useRouter();
 
-	const [PhotoData, setPhotoData] = useState({
+	const [photoData, setPhotoData] = useState({
 		id: '',
 		file: '',
 	});
 
 	const [formData, setFormData] = useState({
-    id: '',
+		id: '',
 		name: '',
 		price: '',
 		amount: '',
 		curCondition: '',
-		subCategoryId: ''
+		subCategoryId: '',
 	});
 
 	function handleInputChange(e) {
 		// Atualiza o estado do formulário quando os campos são alterados
 		const { name, value } = e.target;
 		if (name === 'price') {
-      // Remova caracteres não numéricos e converta para número
-      const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
-      setFormData({...formData, [name]: numericValue || 0});
-    } 
-    if(name === 'amount') {
-      const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
-      setFormData({...formData, [name]: numericValue || 0});
-    } 
-    if(name === 'subCategoryId'){
-      const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
-      setFormData({...formData, [name]: numericValue || 0});
-    } 
-    if (name === 'name') {
-      setFormData({...formData, [name]: value});
-    }
-    if (name === 'curCondition') {
-      setFormData({...formData, [name]: value});
-    }
-    setFormData({...formData, [id]: null});
-  }
+			// Remova caracteres não numéricos e converta para número
+			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
+			setFormData({ ...formData, [name]: numericValue || 0 });
+		}
+		if (name === 'amount') {
+			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
+			setFormData({ ...formData, [name]: numericValue || 0 });
+		}
+		if (name === 'subCategoryId') {
+			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
+			setFormData({ ...formData, [name]: numericValue || 0 });
+		}
+		if (name === 'name') {
+			setFormData({ ...formData, [name]: value });
+		}
+		if (name === 'curCondition') {
+			setFormData({ ...formData, [name]: value });
+		}
+		setFormData({ ...formData, [id]: null });
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			// Faz a requisição usando a função createProduct
-      console.log(formData)
-			const response = await createProduct(formData, router);
-			setPhotoData({ id: response });
-			await productPhoto(PhotoData);
+			console.log(formData);
+			await createProduct(formData, photoData, router);
 		} catch (error) {
 			throw error;
 		}
@@ -113,7 +110,7 @@ export default function ProductForm() {
 					id='fileInput'
 					className='hidden'
 					onChange={(e) => {
-						imageChange(e), handleInputChange(e);
+						imageChange(e);
 					}}
 				/>
 				{/* show image */}
@@ -148,7 +145,7 @@ export default function ProductForm() {
 							onChange={handleInputChange}
 							className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
 						/>
-            <motion.div
+						<motion.div
 							variants={fadeIn('left', 0.6)}
 							initial='hidden'
 							animate='show'
@@ -156,37 +153,38 @@ export default function ProductForm() {
 							className='w-full'>
 							<IMaskInput
 								mask='R$ num'
-                blocks={{
-                  num: {
-                    mask: Number,
-                    thousandsSeparator: '.',
-                    radix: ',',
-                    scale: 2,
-                    signed: false,
-                    normalizeZeros: true,
-                    padFractionalZeros: true,
-                    min: 0,
-                  },
-                }}
+								blocks={{
+									num: {
+										mask: Number,
+										thousandsSeparator: '.',
+										radix: ',',
+										scale: 2,
+										signed: false,
+										normalizeZeros: true,
+										padFractionalZeros: true,
+										min: 0,
+									},
+								}}
 								type='text'
 								name='price'
 								placeholder='Preço'
 								onChange={handleInputChange}
-								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
+								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+							/>
 						</motion.div>
 					</div>
 					<div className='flex flex-col xl:flex-row gap-2 w-full'>
-          <motion.input
-              variants={fadeIn('right', 0.8)}
-              initial='hidden'
-              animate='show'
-              exit='hidden'
-              type='number'
-              name='amount'
-              placeholder='Quantidade'
-              onChange={handleInputChange}
-              className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-            />
+						<motion.input
+							variants={fadeIn('right', 0.8)}
+							initial='hidden'
+							animate='show'
+							exit='hidden'
+							type='number'
+							name='amount'
+							placeholder='Quantidade'
+							onChange={handleInputChange}
+							className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
+						/>
 						<motion.select
 							variants={fadeIn('up', 0.8)}
 							initial='hidden'
@@ -195,9 +193,14 @@ export default function ProductForm() {
 							name='subCategoryId'
 							onChange={handleInputChange}
 							className='input text-black border-tertiary/50'>
-                <option value={0} selected disabled>Categoria</option>
-                <option value={1}>TESTE_POST</option>
-            </motion.select>
+							<option
+								value={0}
+								selected
+								disabled>
+								Categoria
+							</option>
+							<option value={1}>TESTE_POST</option>
+						</motion.select>
 						<motion.select
 							variants={fadeIn('left', 0.8)}
 							initial='hidden'
@@ -206,11 +209,16 @@ export default function ProductForm() {
 							name='curCondition'
 							onChange={handleInputChange}
 							className='input text-black border-tertiary/50'>
-                <option value="0" selected disabled>Condição</option>
-                <option value="BOM">BOM</option>
-                <option value="OTIMO">ÓTIMO</option>
-                <option value="EXCELENTE">EXCELENTE</option>
-            </motion.select>
+							<option
+								value='0'
+								selected
+								disabled>
+								Condição
+							</option>
+							<option value='BOM'>BOM</option>
+							<option value='OTIMO'>ÓTIMO</option>
+							<option value='EXCELENTE'>EXCELENTE</option>
+						</motion.select>
 					</div>
 				</div>
 			</div>
@@ -255,6 +263,5 @@ export default function ProductForm() {
 				</button>
 			</motion.div>
 		</motion.form>
-	)
-};
-
+	);
+}
