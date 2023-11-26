@@ -51,7 +51,7 @@ export default function ProfileForm() {
 		e.preventDefault();
 		try {
 			// Faz a requisição usando a função authRegister
-			const response = await authRegister(formData, router);
+			const response = await authRegister(formData, router); //TODO: Alterar a api para account/update
 			setPhotoData({ id: response });
 			await userPhoto(PhotoData);
 		} catch (error) {
@@ -80,6 +80,7 @@ export default function ProfileForm() {
 	// Image
 	const [selectedImage, setSelectedImage] = useState();
 	function imageChange(e) {
+		console.log('ERRADO:' + e.target.files[0])
 		if (e.target.files && e.target.files.length > 0) {
 			setSelectedImage(e.target.files[0]);
 			setPhotoData({ file: e.target.files[0] });
