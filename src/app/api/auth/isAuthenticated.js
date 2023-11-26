@@ -10,10 +10,11 @@ export default function isAuthenticated() {
   try {
     // Decodificar o token JWT para obter as informações
     const decoded = jwtDecode(jwtToken)
+    sessionStorage.setItem('username', decoded.username)
     // // Verificar se há uma propriedade 'role' no token
-    if (decoded && decoded.role) {
+    if (decoded && decoded.roles) {
       // Retornar o tipo de usuário (user ou admin)
-      return decoded.role
+      return decoded.roles
     } else {
       // A propriedade 'role' não foi encontrada no token
       return null
