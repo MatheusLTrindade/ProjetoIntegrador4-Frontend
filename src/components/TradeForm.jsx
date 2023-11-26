@@ -1,42 +1,67 @@
 // icons
 import { BsArrowRight } from 'react-icons/bs';
 
+// next
+import { usePathname, useRouter } from 'next/navigation';
+
 // react
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // framer motion
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 
 // api
-import createProduct from '@/api/create/createProduct';
-import productPhoto from '@/api/upload/productPhoto';
+import createTrade from '@/api/create/createTrade';
+import getProductsPersonal from '@/app/api/data/getProductsPersonal';
 
-export default function TradeForm(params) {
+export default function TradeForm({ product }) {
+	const pathname = usePathname();
+	const router = useRouter();
 
 	const [formData, setFormData] = useState({
-    id: '',
-		productProposalId: ''
+		productProposalId: '',
+		productPostedId: `${product && product.id}`,
 	});
 
 	function handleInputChange(e) {
 		// Atualiza o estado do formulário quando os campos são alterados
 		const { name, value } = e.target;
-    setFormData({...formData, [name]: value});
-  }
+		setFormData({ ...formData, [name]: value });
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			// Faz a requisição usando a função createProduct
-      console.log(formData)
-			const response = await createProduct(formData, router);
-			setPhotoData({ id: response });
-			await productPhoto(PhotoData);
+			// Faz a requisição usando a função createTrade
+			console.log(formData);
+			await createTrade(formData, router);
 		} catch (error) {
 			throw error;
 		}
 	}
+
+	const [productsUsuario, setProductsUsuario] = useState([{}]);
+	async function getProductsUser() {
+		try {
+			const productsUser = await getProductsPersonal();
+			const productListTemp = [];
+			productsUser.forEach((e) => {
+				productListTemp.push(e);
+			});
+			setProductsUsuario(productListTemp);
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	// Verificar sessionStorage a cada 2 segundos
+	useEffect(() => {
+		// Verificar se pathname começa com '/'
+		if (pathname && pathname.startsWith('/user/store')) {
+			getProductsUser();
+		}
+	}, []);
 
 	return (
 		<motion.form
@@ -59,9 +84,16 @@ export default function TradeForm(params) {
 							name='productProposalId'
 							onChange={handleInputChange}
 							className='input text-black border-tertiary/50'>
-                <option value={0} selected disabled>Produto</option>
-                <option value={1}>TESTE_POST</option>
-            </motion.select>
+							<option
+								value={0}
+								selected
+								disabled>
+								Produto
+							</option>
+							{productsUsuario.map((product, index) => (
+								<option value={product.id}>{product.name}</option>
+							))}
+						</motion.select>
 					</div>
 				</div>
 			</div>
@@ -93,5 +125,5 @@ export default function TradeForm(params) {
 				</button>
 			</motion.div>
 		</motion.form>
-	)
-};
+	);
+}
