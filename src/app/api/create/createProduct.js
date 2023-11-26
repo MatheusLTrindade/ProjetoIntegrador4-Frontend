@@ -1,7 +1,8 @@
 // axios
 import axios from "axios";
+import productPhoto from '@/api/upload/productPhoto';
 
-export default async function createProduct(formData, router) {
+export default async function createProduct(formData, photoData, router) {
   try {
     // Faz a requisição POST usando Axios
     const response = await axios.post('http://localhost:8050/product/create', formData, { headers: {'Authorization': 'Bearer ' + sessionStorage.getItem('jwtToken')}});
@@ -9,7 +10,9 @@ export default async function createProduct(formData, router) {
       // Salvar o toast no armazenamento de sessão
       sessionStorage.setItem('type', 'success')
       sessionStorage.setItem('message', 'Produto cadastrado com sucesso!')
-      return response.data.id
+      photoData.id = response.data.id
+      await productPhoto(photoData);
+      router.push('/user/store')
     }
   } catch(error) {
     // Lida com erros da requisição aqui
