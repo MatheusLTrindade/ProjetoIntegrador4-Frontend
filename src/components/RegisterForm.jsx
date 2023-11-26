@@ -19,13 +19,12 @@ import { fadeIn } from '../../variants';
 
 // api
 import authRegister from '@/api/auth/authRegister';
-import userPhoto from '@/api/upload/userPhoto';
 import ViaCep from '@/api/viaCep';
 export default function RegisterForm() {
 	// Função para mostrar o toast a partir de authRegister
 	const router = useRouter();
 
-	const [PhotoData, setPhotoData] = useState({
+	const [photoData, setPhotoData] = useState({
 		id: '',
 		file: '',
 	});
@@ -55,9 +54,7 @@ export default function RegisterForm() {
 		e.preventDefault();
 		try {
 			// Faz a requisição usando a função authRegister
-			const response = await authRegister(formData, router);
-			setPhotoData({ id: response });
-			await userPhoto(PhotoData);
+			await authRegister(formData, photoData, router);
 		} catch (error) {
 			throw error;
 		}
@@ -73,6 +70,11 @@ export default function RegisterForm() {
 			try {
 				const response = await ViaCep(newCep);
 				setAddress({ street: response.street, district: response.district });
+				setFormData((prevFormData) => ({
+					...prevFormData,
+					address: response.street,
+					district: response.district,
+				}));
 			} catch (error) {
 				setAddress({ street: '', district: '' });
 			}
@@ -240,7 +242,7 @@ export default function RegisterForm() {
 							name='address'
 							placeholder='Address'
 							value={address.street}
-							onChange={handleInputChange}
+							onChange={(e) => {handleInputChange(e)}}
 							className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
 					</div>
 					<div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -253,7 +255,7 @@ export default function RegisterForm() {
 							name='district'
 							placeholder='District'
 							value={address.district}
-							onChange={handleInputChange}
+							onChange={(e) => {handleInputChange(e)}}
 							className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
 						<motion.input
 							variants={fadeIn('up', 0.6)}
