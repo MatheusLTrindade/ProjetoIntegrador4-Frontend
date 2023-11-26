@@ -1,6 +1,8 @@
 // axios
 import axios from 'axios';
 
+import isAuthenticated from '@/api/auth/isAuthenticated'
+
 export default async function authLogin(formData, router) {
 	try {
 		// Faz a requisição POST usando Axios
@@ -13,6 +15,7 @@ export default async function authLogin(formData, router) {
 			// Salvar o token JWT no armazenamento de sessão
 			sessionStorage.setItem('jwtToken', response.data.token);
 			sessionStorage.setItem('authority', response.data.authorities[0].authority);
+			await isAuthenticated()
 			// Salvar o toast no armazenamento de sessão
 			sessionStorage.setItem('type', 'success');
 			sessionStorage.setItem('message', 'Login realizado com sucesso!');
