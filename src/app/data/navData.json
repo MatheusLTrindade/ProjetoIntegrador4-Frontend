@@ -4,14 +4,14 @@
     { "name": "info", "path": "/info", "icon": "HiOutlineInformationCircle" }
   ],
   "admin": [
-    { "name": "dashboard", "path": "/admin", "icon": "BiSolidDashboard" },
+    { "name": "painel", "path": "/admin", "icon": "BiSolidDashboard" },
     { "name": "crud", "path": "/admin/crud", "icon": "BiSolidData" },
-    { "name": "logout", "path": "/", "icon": "GiExitDoor" }
+    { "name": "sair", "path": "/", "icon": "GiExitDoor" }
   ],
   "user": [
-    { "name": "dashboard", "path": "/user", "icon": "BiSolidDashboard" },
-    { "name": "profile", "path": "/user/username", "icon": "HiUser" },
-    { "name": "store", "path": "/user/store", "icon": "SiHomeassistantcommunitystore" },
-    { "name": "logout", "path": "/", "icon": "GiExitDoor" }
+    { "name": "painel", "path": "/user", "icon": "BiSolidDashboard" },
+    { "name": "perfil", "path": "/user/username", "icon": "HiUser" },
+    { "name": "loja", "path": "/user/store", "icon": "SiHomeassistantcommunitystore" },
+    { "name": "sair", "path": "/", "icon": "GiExitDoor" }
   ]
 }

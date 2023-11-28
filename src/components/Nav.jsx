@@ -49,8 +49,8 @@ export default function Nav(params) {
                 `${link.path === pathname && 'text-blueExtraLight'} relative flex 
                 items-center group hover:text-blueExtraLight transition-all duration-300`
               }
-							onClick={() => {if (link.name === 'logout') {authLogout()}}}
-							href={link.path === '/user/username' ? `/user/${sessionStorage.getItem('username')}` : link.path}
+							onClick={() => {if (link.name === 'sair') {authLogout()}}}
+							href={link.path === '/user/username' && typeof window !== 'undefined' ? `/user/${sessionStorage.getItem('username')}` : link.path}
 							key={index}
             >
 							{/* tooltip */}
