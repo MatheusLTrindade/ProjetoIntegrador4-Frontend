@@ -1,5 +1,6 @@
 // icons
 import { BsArrowRight, BsMouseFill } from 'react-icons/bs';
+import { FiDelete } from "react-icons/fi";
 import { ImBin } from 'react-icons/im';
 import { BiSolidImageAdd } from 'react-icons/bi';
 
@@ -11,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 // mask
-import { IMaskInput } from 'react-imask';
+import { CurrencyInput } from 'react-currency-mask';
 
 // framer motion
 import { motion } from 'framer-motion';
@@ -19,8 +20,11 @@ import { fadeIn } from '../../variants';
 
 // api
 import updateProduct from '@/api/update/updateProduct';
+import getProductFindId from '@/app/api/get/getProductFindId';
+import deleteProduct from '@/app/api/delete/deleteProduct';
+// import getCategory from '@/api/data/getCategory';
 
-export default function ProductUpdateForm({ product }) {
+export default function ProductUpdateForm({ product, onClose }) {
 	// Função para mostrar o toast a partir de updateProduct
 	const router = useRouter();
 
@@ -35,47 +39,49 @@ export default function ProductUpdateForm({ product }) {
 		price: product.price,
 		amount: product.amount,
 		curCondition: product.curCondition,
-		subCategoryId: product.subCategoryId,
 	});
 	
 	useEffect(() => {
-		setFormData({
-			id: product.id,
-			name: product.name,
-			price: product.price,
-			amount: product.amount,
-			curCondition: product.curCondition,
-			subCategoryId: product.subCategoryId,
-		});
+		getProductFind(product.id)
 		setPhotoProductData({
 			id: product.id
 		})
-	}, [product]);
+		// getCategory()
+	}, [product.id]);
+
+	async function getProductFind(id) {
+		try {
+			const response = await getProductFindId(id)
+			setFormData({
+				id: response.id,
+				name: response.name,
+				price: response.price,
+				amount: response.amount,
+				curCondition: response.curCondition,
+				subCategoryId: response.subCategory.id
+			})
+		} catch (error) {
+			throw error
+		}
+	}
 
 	function handleInputChange(e) {
-		console.log(e.target)
-		// Atualiza o estado do formulário quando os campos são alterados
-		const { name, value } = e.target;
-		if (name === 'price') {
-			// Remova caracteres não numéricos e converta para número
+    const { name, value } = e.target;
+    if (name === 'price') {
+			const numericValue = parseFloat(value.replace(/[^\d,.]/g, '').replace('R$', '').replace(',', '.'), 10);
+			setFormData({ ...formData, [name]: numericValue || 0 });
+    }
+    if (name === 'amount') {
+			const numericValue = parseInt(value);
+			setFormData({ ...formData, [name]: numericValue || 0 });
+    }
+    if (name === 'subCategory') {
 			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
 			setFormData({ ...formData, [name]: numericValue || 0 });
-		}
-		if (name === 'amount') {
-			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
-			setFormData({ ...formData, [name]: numericValue || 0 });
-		}
-		if (name === 'subCategoryId') {
-			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
-			setFormData({ ...formData, [name]: numericValue || 0 });
-		}
-		if (name === 'name') {
+    }
+    if (name === 'name' || name === 'curCondition') {
 			setFormData({ ...formData, [name]: value });
-		}
-		if (name === 'curCondition') {
-			setFormData({ ...formData, [name]: value });
-		}
-		setFormData({ ...formData, [id]: null });
+    }
 	}
 
 	async function handleSubmit(e) {
@@ -83,17 +89,27 @@ export default function ProductUpdateForm({ product }) {
 		try {
 			// Faz a requisição usando a função updateProduct
 			console.log(formData);
-			await updateProduct(formData, photoProductData, router);
+			const response = await updateProduct(formData, photoProductData, router);
+			if (response) { onClose() }
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async function handleDelete(e) {
+		e.preventDefault()
+		try {
+			// Faz a requisição usando a função deleteProduct
+			const response = await deleteProduct(product.id);
+			if (response) { onClose() }
 		} catch (error) {
 			throw error;
 		}
 	}
 
 	// Image
-	const [selectedImageProduct, setSelectedImageProduct] = useState();
+	const [selectedImageProduct, setSelectedImageProduct] = useState(product.photoPath !== 'no image' ? product.photoPath : null);
 	function imageProductChange(eventProduct) {
-		//console.log('CERTO:' + eventProduct.target.files[0])
-		console.log('ID' + product.id)
 		if (eventProduct.target.files && eventProduct.target.files.length > 0) {
 			setSelectedImageProduct(eventProduct.target.files[0]);
 			setPhotoProductData({ file: eventProduct.target.files[0] });
@@ -132,7 +148,7 @@ export default function ProductUpdateForm({ product }) {
 				{selectedImageProduct && (
 					<div className='relative flex items-center justify-center'>
 						<Image
-							src={URL.createObjectURL(selectedImageProduct)}
+							src={(selectedImageProduct === product.photoPath ? (product.photoPath !== 'no image' ? product.photoPath : '/ProductNoImage.png') : URL.createObjectURL(selectedImageProduct))}
 							width={100}
 							height={100}
 							alt='Product picture'
@@ -168,28 +184,17 @@ export default function ProductUpdateForm({ product }) {
 							animate='show'
 							exit='hidden'
 							className='w-full'>
-							<IMaskInput
-								mask='R$ num'
-								blocks={{
-									num: {
-										mask: Number,
-										thousandsSeparator: '.',
-										radix: ',',
-										scale: 2,
-										signed: false,
-										normalizeZeros: true,
-										padFractionalZeros: true,
-										min: 0,
-									},
-								}}
-								type='text'
+							<CurrencyInput 
 								name='price'
-								id="price_id"
-								value={`${formData.price}`}
-								placeholder='Preço'
+								id="price_id" 
+								placeholder="R$ 0.00" 
+								value={formData.price} 
+								onChangeValue={(_, value) => {
+									// field.onChange(value);
+									setFormData({ ...formData, price: value });
+								}}
 								onChange={handleInputChange}
-								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-							/>
+								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
 						</motion.div>
 					</div>
 					<div className='flex flex-col xl:flex-row gap-2 w-full'>
@@ -212,15 +217,11 @@ export default function ProductUpdateForm({ product }) {
 							animate='show'
 							exit='hidden'
 							name='subCategoryId'
-							onChange={handleInputChange}
+							onChange={(e) => setFormData({ ...formData, subCategoryId: e.target.value || 0 })}
 							className='input text-black border-tertiary/50'>
-							<option
-								value={0}
-								selected
-								disabled>
-								Categoria
-							</option>
-							<option value={1}>TESTE_POST</option>
+							<option value={2} selected={formData.subCategoryId === 2}>testes2</option>
+							<option value={1} selected={formData.subCategoryId === 1}>teste</option>
+							<option value={3} selected={formData.subCategoryId === 3}>teste3</option>
 						</motion.select>
 						<motion.select
 							variants={fadeIn('left', 0.8)}
@@ -228,17 +229,12 @@ export default function ProductUpdateForm({ product }) {
 							animate='show'
 							exit='hidden'
 							name='curCondition'
+							value={formData.curCondition}
 							onChange={handleInputChange}
 							className='input text-black border-tertiary/50'>
-							<option
-								value='0'
-								selected
-								disabled>
-								Condição
-							</option>
-							<option value='BOM'>BOM</option>
-							<option value='OTIMO'>ÓTIMO</option>
-							<option value='EXCELENTE'>EXCELENTE</option>
+							<option value='BOM' selected={product.curCondition === 'BOM'}>BOM</option>
+							<option value='OTIMO' selected={product.curCondition === 'OTIMO'}>ÓTIMO</option>
+							<option value='EXCELENTE' selected={product.curCondition === 'EXCELENTE'}>EXCELENTE</option>
 						</motion.select>
 					</div>
 				</div>
@@ -256,33 +252,64 @@ export default function ProductUpdateForm({ product }) {
 				<BsMouseFill />
 				<span className='text-tertiary/50 tracking-[-1.75px]'>---</span>
 			</motion.p>
-			{/* button send */}
-			<motion.div
-				variants={fadeIn('right', 1.4)}
-				initial='hidden'
-				animate='show'
-				exit='hidden'>
-				<button
-					type='submit'
-					className='
-          btn rounded-full border border-tertiary/50 max-w-[120px] px-8 
-          transition-all delay-300 flex items-center justify-center 
-          overflow-hidden hover:border-accent hover:border-2 group hover:translate-x-6'>
-					<span
+			{/* buttons */}
+			<div className="flex justify-between items-center">
+				{/* button send */}
+				<motion.div
+					variants={fadeIn('right', 1.4)}
+					initial='hidden'
+					animate='show'
+					exit='hidden'>
+					<button
+						type='submit'
 						className='
-            group-hover:-translate-y-[120%] group-hover:opacity-0 
-            transition-all delay-200 duration-200 text-tertiary'>
-						Publicar
-					</span>
-					<BsArrowRight
+						btn rounded-full border border-tertiary/50 max-w-[120px] px-8 
+						transition-all delay-300 flex items-center justify-center 
+						overflow-hidden hover:border-accent hover:border-2 group hover:translate-x-6'>
+						<span
+							className='
+							group-hover:-translate-y-[120%] group-hover:opacity-0 
+							transition-all delay-200 duration-200 text-tertiary'>
+							Publicar
+						</span>
+						<BsArrowRight
+							className='
+							-translate-y-[120%] opacity-0 group-hover:flex 
+							group-hover:-translate-y-0 group-hover:opacity-100 
+							transition-all delay-200 duration-200 absolute text-[30px] 
+						text-accent font-bold'
+						/>
+					</button>
+				</motion.div>
+				{/* button delete */}
+				<motion.div
+					variants={fadeIn('left', 1.4)}
+					initial='hidden'
+					animate='show'
+					exit='hidden'>
+					<button
+						type='button'
 						className='
-            -translate-y-[120%] opacity-0 group-hover:flex 
-            group-hover:-translate-y-0 group-hover:opacity-100 
-            transition-all delay-200 duration-200 absolute text-[30px] 
-          text-accent font-bold'
-					/>
-				</button>
-			</motion.div>
+						btn rounded-full border border-red-600/50 max-w-[120px] px-8 
+						transition-all delay-300 flex items-center justify-center 
+						overflow-hidden hover:border-red-600 hover:border-2 group hover:-translate-x-6'
+						onClick={handleDelete}>
+						<span
+							className='
+							group-hover:-translate-y-[120%] group-hover:opacity-0 
+							transition-all delay-200 duration-200 text-red-600'>
+							Excluir
+						</span>
+						<FiDelete
+							className='
+							-translate-y-[120%] opacity-0 group-hover:flex 
+							group-hover:-translate-y-0 group-hover:opacity-100 
+							transition-all delay-200 duration-200 absolute text-[30px] 
+						text-red-600 font-bold'
+						/>
+					</button>
+				</motion.div>
+			</div>
 		</motion.form>
 	);
 }
