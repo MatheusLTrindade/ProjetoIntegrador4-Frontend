@@ -5,13 +5,13 @@ import { BiSolidImageAdd } from 'react-icons/bi';
 
 // next
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 // react
 import { useState } from 'react';
 
 // mask
 import { IMaskInput } from 'react-imask';
+import { CurrencyInput } from 'react-currency-mask';
 
 // framer motion
 import { motion } from 'framer-motion';
@@ -20,9 +20,7 @@ import { fadeIn } from '../../variants';
 // api
 import createProduct from '@/api/create/createProduct';
 
-export default function ProductForm() {
-	// Função para mostrar o toast a partir de createProduct
-	const router = useRouter();
+export default function ProductForm({ onClose }) {
 
 	const [photoData, setPhotoData] = useState({
 		id: '',
@@ -42,10 +40,9 @@ export default function ProductForm() {
 		// Atualiza o estado do formulário quando os campos são alterados
 		const { name, value } = e.target;
 		if (name === 'price') {
-			// Remova caracteres não numéricos e converta para número
-			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
+			const numericValue = parseFloat(value.replace(/[^\d,.]/g, '').replace('R$', '').replace(',', '.'), 10);
 			setFormData({ ...formData, [name]: numericValue || 0 });
-		}
+    }
 		if (name === 'amount') {
 			const numericValue = parseFloat(value.replace(/[^\d.]/g, ''), 10);
 			setFormData({ ...formData, [name]: numericValue || 0 });
@@ -60,7 +57,6 @@ export default function ProductForm() {
 		if (name === 'curCondition') {
 			setFormData({ ...formData, [name]: value });
 		}
-		setFormData({ ...formData, [id]: null });
 	}
 
 	async function handleSubmit(e) {
@@ -68,7 +64,8 @@ export default function ProductForm() {
 		try {
 			// Faz a requisição usando a função createProduct
 			console.log(formData);
-			await createProduct(formData, photoData, router);
+			const response = await createProduct(formData, photoData);
+			if (response) { onClose() }
 		} catch (error) {
 			throw error;
 		}
@@ -151,26 +148,17 @@ export default function ProductForm() {
 							animate='show'
 							exit='hidden'
 							className='w-full'>
-							<IMaskInput
-								mask='R$ num'
-								blocks={{
-									num: {
-										mask: Number,
-										thousandsSeparator: '.',
-										radix: ',',
-										scale: 2,
-										signed: false,
-										normalizeZeros: true,
-										padFractionalZeros: true,
-										min: 0,
-									},
-								}}
-								type='text'
+							<CurrencyInput 
 								name='price'
-								placeholder='Preço'
+								id="price_id" 
+								placeholder="R$ 0.00" 
+								value={formData.price} 
+								onChangeValue={(_, value) => {
+									// field.onChange(value);
+									setFormData({ ...formData, price: value });
+								}}
 								onChange={handleInputChange}
-								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'
-							/>
+								className='input text-black border-tertiary/50 placeholder:text-tertiary/50'/>
 						</motion.div>
 					</div>
 					<div className='flex flex-col xl:flex-row gap-2 w-full'>
