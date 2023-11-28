@@ -13,7 +13,7 @@ import TradeForm from '@/components/TradeForm';
 import Product from "@/components/Product";
 
 // api
-import getProducts from '@/api/data/getProducts';
+import getProducts from '@/api/get/getProducts';
 
 // icons
 import { MdAddBox, MdFilterAlt  } from "react-icons/md";
@@ -53,29 +53,29 @@ export default function Store(params) {
   // Verificar sessionStorage a cada 2 segundos
   useEffect(() => {
     // Verificar se pathname começa com '/'
-    if (pathname && pathname.startsWith('/user/store')) {
+    if (pathname && pathname.endsWith('/user/store')) {
       getFeed()
     }
   }, [])
 
   const [modalProductView, setModalProductView] = useState(false);
-  const [modalFilterView, setModalFilterView] = useState(false);
-  const [modalTradeView, setModalTradeView] = useState(false);
 	function handleModalProductChange() {
-		setModalProductView(true);
+    setModalProductView(true);
 	}
   function handleModalProductClose() {
     setModalProductView(false);
   }
+  const [modalFilterView, setModalFilterView] = useState(false);
 	function handleModalFilterChange() {
     setModalFilterView(true);
 	}
   function handleModalFilterClose() {
     setModalFilterView(false);
   }
+  const [modalTradeView, setModalTradeView] = useState(false);
   const [productSelected, setProductSelected] = useState()
-	function handleModalTradeChange(produto) {
-    setProductSelected(produto)
+	function handleModalTradeChange(product) {
+    setProductSelected(product)
     setModalTradeView(true);
 	}
   function handleModalTradeClose() {
@@ -84,9 +84,9 @@ export default function Store(params) {
 
   return (
     <div className="h-full bg-secondary/20 text-center relative">
-			<Modal visible={modalProductView} title={'Cadastrar produto'} component={ProductForm} onClose={handleModalProductClose}/>
+			<Modal visible={modalProductView} title={'Cadastrar produto'} component={() => <ProductForm onClose={handleModalProductClose} />} onClose={handleModalProductClose}/>
 			<Modal visible={modalFilterView} title={'Filtro'} component={FilterForm} onClose={handleModalFilterClose}/>
-      <Modal visible={modalTradeView} title={'Criar proposta'} component={() => <TradeForm product={productSelected} />} onClose={handleModalTradeClose}/>
+      <Modal visible={modalTradeView} title={'Criar proposta'} component={() => <TradeForm product={productSelected} onClose={handleModalTradeClose} />} onClose={handleModalTradeClose}/>
       <div className="py-32">
         <div className="container mx-auto h-full flex flex-col justify-center">
           <h2 className="h2 mb-8 xl:mb-0 max-sm:text-[30px] nova-slim">Loja<span className="text-accent">.</span></h2>
@@ -100,8 +100,18 @@ export default function Store(params) {
           </div>
           <div className="flex sm:flex-col justify-center pt-4 h-full w-full mx-auto">
             <div className="h-[330px] flex sm:flex-wrap gap-4 sm:justify-center overflow-x-scroll sm:overflow-x-hidden sm:overflow-y-auto">
-              {products.map((produto, index) => (
-                <Product key={index} photo={produto.pathPhotoProduct} name={produto.name} price={produto.price} photoSeller={produto.pathPhotoProductOwner} seller={produto.username} setting={false} click={() => {handleModalTradeChange(produto)}}/>
+              {products.map((product, index) => (
+                <Product 
+                  key={index} 
+                  photo={product.pathPhotoProduct == '' ? '/ProductNoImage.png' : product.pathPhotoProduct} 
+                  name={product.name} 
+                  price={product.price} 
+                  amount={product.amount}
+                  curCondition={product.curCondition}
+                  photoSeller={product.pathPhotoProductOwner == '' ? '/PersonNoImage.png' : product.pathPhotoProductOwner} 
+                  seller={product.username} 
+                  setting={false} 
+                  click={() => {handleModalTradeChange(product)}}/>
               ))}
             </div>
           </div>
