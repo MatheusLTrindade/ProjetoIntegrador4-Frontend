@@ -14,7 +14,7 @@ export default function isAuthenticated() {
     // // Verificar se há uma propriedade 'role' no token
     if (decoded && decoded.roles) {
       // Retornar o tipo de usuário (user ou admin)
-      return decoded.roles
+      return decoded.roles[0]
     } else {
       // A propriedade 'role' não foi encontrada no token
       return null
