@@ -4,7 +4,7 @@ import axios from "axios";
 export default async function getProducts() {
   try {
     // Faz a requisição POST usando Axios
-    const response = await axios.get('http://localhost:8050/product/feed', { headers: {'Authorization': 'Bearer ' + sessionStorage.getItem('jwtToken')}});
+    const response = await axios.get('http://localhost:8050/product/feed/0/30', { headers: {'Authorization': 'Bearer ' + sessionStorage.getItem('jwtToken')}});
     if (response.status === 200) {
       return response.data
     }
