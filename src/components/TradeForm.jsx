@@ -13,9 +13,9 @@ import { fadeIn } from '../../variants';
 
 // api
 import createTrade from '@/api/create/createTrade';
-import getProductsPersonal from '@/app/api/data/getProductsPersonal';
+import getProductsPersonal from '@/app/api/get/getProductsPersonal';
 
-export default function TradeForm({ product }) {
+export default function TradeForm({ product, onClose }) {
 	const pathname = usePathname();
 	const router = useRouter();
 
@@ -34,8 +34,10 @@ export default function TradeForm({ product }) {
 		e.preventDefault();
 		try {
 			// Faz a requisição usando a função createTrade
-			console.log(formData);
-			await createTrade(formData, router);
+			const response = await createTrade(formData, router);
+			if (response) {
+				onClose();
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -44,7 +46,7 @@ export default function TradeForm({ product }) {
 	const [productsUsuario, setProductsUsuario] = useState([{}]);
 	async function getProductsUser() {
 		try {
-			const productsUser = await getProductsPersonal();
+			const productsUser = await getProductsPersonal(sessionStorage.getItem('username'));
 			const productListTemp = [];
 			productsUser.forEach((e) => {
 				productListTemp.push(e);
@@ -57,11 +59,8 @@ export default function TradeForm({ product }) {
 
 	// Verificar sessionStorage a cada 2 segundos
 	useEffect(() => {
-		// Verificar se pathname começa com '/'
-		if (pathname && pathname.startsWith('/user/store')) {
-			getProductsUser();
-		}
-	}, []);
+		getProductsUser();
+	}, [pathname]);
 
 	return (
 		<motion.form
@@ -91,7 +90,11 @@ export default function TradeForm({ product }) {
 								Produto
 							</option>
 							{productsUsuario.map((product, index) => (
-								<option value={product.id}>{product.name}</option>
+								<option
+									key={index}
+									value={product.id}>
+									{product.name}
+								</option>
 							))}
 						</motion.select>
 					</div>

@@ -9,7 +9,7 @@ export default async function createProduct(formData, router) {
       // Salvar o toast no armazenamento de sessão
       sessionStorage.setItem('type', 'success')
       sessionStorage.setItem('message', 'Trade enviado com sucesso!')
-      // router.
+      return true
     }
   } catch(error) {
     // Lida com erros da requisição aqui
