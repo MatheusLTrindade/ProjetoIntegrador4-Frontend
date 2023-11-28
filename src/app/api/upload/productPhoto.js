@@ -4,21 +4,17 @@ import axios from 'axios';
 export default async function productPhoto(formData) {
 	try {
 		// Faz a requisição POST usando Axios
-		const response = await axios.post(
-			'http://localhost:8050/product/upload',
-			formData,
-			{ headers: { 'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + sessionStorage.getItem('jwtToken') } },
-		);
-		if (response.status === 200) {
-			console.info('Foto envida com sucesso!');
+		const response = await axios.post('http://localhost:8050/product/upload',	formData,	{ headers: { 'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + sessionStorage.getItem('jwtToken')}});
+		if (response.status === 200) { 
 			// Salvar o toast no armazenamento de sessão
-			sessionStorage.setItem('type', 'success');
-			sessionStorage.setItem('message', 'Foto enviada com sucesso!');
+			sessionStorage.setItem('type', 'success')
+			sessionStorage.setItem('message', 'Produto cadastrado com sucesso!')
 		}
 	} catch (error) {
 		// Lida com erros da requisição aqui
-		sessionStorage.setItem('type', 'error');
-		sessionStorage.setItem('message', 'Falha ao enviar foto!');
+		// Salvar o toast no armazenamento de sessão
+		sessionStorage.setItem('type', 'alert')
+		sessionStorage.setItem('message', 'Produto cadastrado sem foto!')
 		console.error('Erro ao enviar requisição:', error);
 	}
 }
