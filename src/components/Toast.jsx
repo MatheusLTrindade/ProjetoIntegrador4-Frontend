@@ -11,7 +11,8 @@ export default function Toast({ type, message, onClose }) {
   switch (type) {
     case 'alert':
       icon = <FaExclamationTriangle className='text-yellow-500'/>
-      bg_toast = 'bg-yellow-800/60'
+      bg_toast = 'bg-yellow-700'
+      break;
     case 'error':
       icon = <FaExclamationCircle className='text-white'/>
       bg_toast = 'bg-red-500'
